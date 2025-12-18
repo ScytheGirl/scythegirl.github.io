@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>敌人数据查询器</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #4cc9f0;
+        }
+        
+        h1 {
+            color: #4cc9f0;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
+        }
+        
+        .subtitle {
+            color: #a0a0c0;
+            font-size: 1.1rem;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        
+        .data-loading-section {
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .data-loading-section h2 {
+            color: #72efdd;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .status-indicators {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background-color: #0f3460;
+            border-radius: 6px;
+            border-left: 4px solid #555;
+        }
+        
+        .status-item.loaded {
+            border-left-color: #4ade80;
+        }
+        
+        .status-item.error {
+            border-left-color: #f72585;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #555;
+        }
+        
+        .status-dot.loaded {
+            background-color: #4ade80;
+        }
+        
+        .status-dot.error {
+            background-color: #f72585;
+        }
+        
+        .status-info {
+            flex: 1;
+        }
+        
+        .status-name {
+            color: #a0c4ff;
+            font-weight: 500;
+        }
+        
+        .status-text {
+            color: #e0e0e0;
+            font-size: 0.9rem;
+        }
+        
+        .load-data-btn {
+            padding: 12px 24px;
+            background-color: #4361ee;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .load-data-btn:hover {
+            background-color: #3a56d4;
+            transform: translateY(-2px);
+        }
+        
+        .load-data-btn:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .search-section {
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .search-section h2 {
+            color: #72efdd;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 15px;
+            background-color: #0f3460;
+            border: 1px solid #4cc9f0;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #72efdd;
+            box-shadow: 0 0 0 2px rgba(114, 239, 221, 0.2);
+        }
+        
+        .search-btn {
+            background-color: #7209b7;
+            color: white;
+            padding: 0 30px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            background-color: #5a08a3;
+        }
+        
+        .search-btn:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+        
+        .result-section {
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            min-height: 300px;
+        }
+        
+        .result-section h2 {
+            color: #72efdd;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .result-container {
+            display: none;
+        }
+        
+        .result-container.active {
+            display: block;
+        }
+        
+        .result-count {
+            margin-bottom: 20px;
+            color: #a0c4ff;
+            font-size: 1.1rem;
+            padding: 10px;
+            background-color: #0f3460;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .enemy-results {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+        
+        .enemy-card {
+            background-color: #0f3460;
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 5px solid #4cc9f0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .enemy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(76, 201, 240, 0.3);
+        }
+        
+        .enemy-name-id {
+            flex: 1;
+        }
+        
+        .enemy-name {
+            color: #a0c4ff;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .enemy-id {
+            color: #72efdd;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-item {
+            background-color: #16213e;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4361ee;
+            position: relative;
+        }
+        
+        .stat-label {
+            color: #a0c4ff;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .skills-item {
+            cursor: help;
+            position: relative;
+        }
+        
+        .skills-tooltip {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 100;
+            background-color: #0f3460;
+            border: 1px solid #4cc9f0;
+            border-radius: 6px;
+            padding: 15px;
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+        
+        .skills-item:hover .skills-tooltip {
+            display: block;
+        }
+        
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .skill-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(76, 201, 240, 0.2);
+            color: #e0e0e0;
+        }
+        
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .special-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .special-stat {
+            background-color: #16213e;
+            padding: 15px;
+            border-radius: 8px;
+            flex: 1;
+            min-width: 200px;
+            border-left: 4px solid #f72585;
+        }
+        
+        .weakness-container {
+            background-color: #16213e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #ffbe0b;
+        }
+        
+        .weakness-label {
+            color: #ffbe0b;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .weakness-value {
+            color: #ffffff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .drop-info {
+            background-color: #16213e;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #4ade80;
+        }
+        
+        .drop-label {
+            color: #4ade80;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .drop-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .drop-list li {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(74, 222, 128, 0.2);
+            color: #e0e0e0;
+        }
+        
+        .drop-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .money-note {
+            font-size: 0.9rem;
+            color: #a0c4ff;
+            margin-left: 5px;
+        }
+        
+        .no-result {
+            text-align: center;
+            padding: 40px;
+            color: #a0a0c0;
+            font-size: 1.2rem;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 5px solid #4cc9f0;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .instructions {
+            background-color: #0f3460;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            border-left: 4px solid #4cc9f0;
+        }
+        
+        .instructions h3 {
+            color: #72efdd;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+            color: #c0c0e0;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .status-indicators {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-btn {
+                padding: 15px;
+            }
+            
+            .enemy-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .skills-tooltip {
+                width: 250px;
+                max-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>敌人数据查询器</h1>
+            <p class="subtitle">从服务器加载JSON文件，查询敌人详细属性、弱点、掉落与技能信息</p>
+        </header>
+        
+        <div class="main-content">
+            <section class="data-loading-section">
+                <h2>1. 加载数据文件</h2>
+                <div class="status-indicators" id="statusIndicators">
+                    <!-- 状态指示器将在这里动态生成 -->
+                </div>
+                <button class="load-data-btn" id="loadDataBtn">加载所有数据文件</button>
+            </section>
+            
+            <section class="search-section">
+                <h2>2. 查询敌人数据</h2>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="输入敌人名称或部分名称（如：苍绿色）" autocomplete="off">
+                    <button class="search-btn" id="searchBtn" disabled>查询</button>
+                </div>
+                <div class="loading" id="loadingIndicator">
+                    <div class="spinner"></div>
+                    <p>正在查询数据...</p>
+                </div>
+            </section>
+            
+            <section class="result-section">
+                <h2>3. 查询结果</h2>
+                <div class="no-result" id="noResultMessage">
+                    <p>请先加载数据文件，然后输入敌人名称进行查询</p>
+                </div>
+                
+                <div class="result-container" id="resultContainer">
+                    <div class="result-count" id="resultCount"></div>
+                    <div class="enemy-results" id="enemyResults">
+                        <!-- 敌人卡片将在这里动态生成 -->
+                    </div>
+                </div>
+            </section>
+            
+            <div class="instructions">
+                <h3>使用说明</h3>
+                <ul>
+                    <li>首先点击"加载所有数据文件"按钮从服务器加载数据</li>
+                    <li>所有数据文件加载完成后，查询按钮将变为可用状态</li>
+                    <li>在查询框中输入敌人名称或部分名称（支持模糊查询，例如：苍绿色）</li>
+                    <li>点击"查询"按钮查看敌人详细信息</li>
+                    <li>弱点字段显示格式为：盾数/弱点类型（例如：8/剑枪刃光暗）</li>
+                    <li>武器弱点对应关系：无,剑,枪,刃,斧,弓,杖,书,扇,无</li>
+                    <li>魔法弱点对应关系：无,火,冰,雷,风,光,暗,无</li>
+                    <li>掉落和偷取信息显示格式：机率% 道具名称 x 数量 (价值：总卖价)</li>
+                    <li>鼠标悬停在技能组ID上可以查看详细的技能列表</li>
+                    <li>系统会同时通过名称(m_gametext)和显示名称(m_DisplayName)进行查询</li>
+                    <li>支持显示多个匹配结果</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 数据存储对象
+        const dataStore = {
+            enemyIdData: null,
+            gameTextData: null,
+            weakIdData: null,
+            gameTextItemData: null,
+            gameTextSkillData: null,
+            enemyDropData: null,
+            skillIdData: null,
+            tacticalSkillData: null,
+            itemListData: null,
+            loaded: {
+                enemyId: false,
+                gameText: false,
+                weakId: false,
+                gameTextItem: false,
+                gameTextSkill: false,
+                enemyDrop: false,
+                skillId: false,
+                tacticalSkill: false,
+                itemList: false
+            }
+        };
+
+        // 文件列表配置
+        const fileConfigs = [
+            { key: 'enemyId', name: '敌人属性数据', file: 'EnemyID.json' },
+            { key: 'gameText', name: '敌人名称数据', file: 'GameTextEnemy.json' },
+            { key: 'weakId', name: '敌人弱点数据', file: 'EnemyWeakID.json' },
+            { key: 'gameTextItem', name: '道具名称数据', file: 'GameTextItem.json' },
+            { key: 'gameTextSkill', name: '技能名称数据', file: 'GameTextSkill.json' },
+            { key: 'enemyDrop', name: '敌人掉落数据', file: 'EnemyDropID.json' },
+            { key: 'skillId', name: '技能属性数据', file: 'SkillID.json' },
+            { key: 'tacticalSkill', name: '战术技能数据', file: 'TacticalSkillList.json' },
+            { key: 'itemList', name: '道具列表数据', file: 'ItemList.json' }
+        ];
+
+        // DOM元素
+        const loadDataBtn = document.getElementById('loadDataBtn');
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const noResultMessage = document.getElementById('noResultMessage');
+        const resultContainer = document.getElementById('resultContainer');
+        const resultCount = document.getElementById('resultCount');
+        const enemyResults = document.getElementById('enemyResults');
+        const statusIndicators = document.getElementById('statusIndicators');
+
+        // 武器弱点映射
+        const weaponWeaknessMap = ["无", "剑", "枪", "刃", "斧", "弓", "杖", "书", "扇", "无"];
+        
+        // 魔法弱点映射
+        const magicWeaknessMap = ["无", "火", "冰", "雷", "风", "光", "暗", "无"];
+
+        // 初始化状态指示器
+        function initStatusIndicators() {
+            statusIndicators.innerHTML = '';
+            
+            fileConfigs.forEach(config => {
+                const statusItem = document.createElement('div');
+                statusItem.className = 'status-item';
+                statusItem.id = `status-${config.key}`;
+                
+                statusItem.innerHTML = `
+                    <span class="status-dot"></span>
+                    <div class="status-info">
+                        <div class="status-name">${config.name}</div>
+                        <div class="status-text" id="status-text-${config.key}">未加载</div>
+                    </div>
+                `;
+                
+                statusIndicators.appendChild(statusItem);
+            });
+        }
+
+        // 更新状态指示器
+        function updateStatusIndicator(key, status, message = null) {
+            const statusItem = document.getElementById(`status-${key}`);
+            const statusDot = statusItem.querySelector('.status-dot');
+            const statusText = document.getElementById(`status-text-${key}`);
+            
+            // 移除所有状态类
+            statusItem.classList.remove('loaded', 'error');
+            statusDot.classList.remove('loaded', 'error');
+            
+            if (status === 'loading') {
+                statusText.textContent = message || '加载中...';
+            } else if (status === 'loaded') {
+                statusItem.classList.add('loaded');
+                statusDot.classList.add('loaded');
+                statusText.textContent = message || '已加载';
+            } else if (status === 'error') {
+                statusItem.classList.add('error');
+                statusDot.classList.add('error');
+                statusText.textContent = message || '加载失败';
+            }
+        }
+
+        // 从服务器加载JSON文件
+        async function loadJsonFile(fileName) {
+            try {
+                const response = await fetch(fileName);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error(`加载文件 ${fileName} 失败:`, error);
+                throw error;
+            }
+        }
+
+        // 提取数据数组（根据提供的JSON结构）
+        function extractDataArray(data) {
+            // 根据描述：data[0]?.Properties?.Data?.m_DataList
+            if (Array.isArray(data) && data.length > 0) {
+                const firstItem = data[0];
+                if (firstItem && firstItem.Properties && firstItem.Properties.Data && firstItem.Properties.Data.m_DataList) {
+                    return firstItem.Properties.Data.m_DataList;
+                }
+            }
+            // 如果不符合上述结构，直接返回原数据
+            return data;
+        }
+
+        // 加载所有数据文件
+        async function loadAllData() {
+            try {
+                // 禁用加载按钮
+                loadDataBtn.disabled = true;
+                loadDataBtn.textContent = '正在加载...';
+                
+                // 初始化所有状态为加载中
+                fileConfigs.forEach(config => {
+                    updateStatusIndicator(config.key, 'loading', '加载中...');
+                });
+                
+                // 加载所有文件
+                for (const config of fileConfigs) {
+                    try {
+                        updateStatusIndicator(config.key, 'loading', '加载中...');
+                        
+                        const rawData = await loadJsonFile(config.file);
+                        const extractedData = extractDataArray(rawData);
+                        
+                        // 存储到数据存储对象
+                        dataStore[`${config.key}Data`] = extractedData;
+                        dataStore.loaded[config.key] = true;
+                        
+                        updateStatusIndicator(config.key, 'loaded', `已加载 (${extractedData.length} 条记录)`);
+                        
+                    } catch (error) {
+                        console.error(`加载 ${config.name} 失败:`, error);
+                        dataStore.loaded[config.key] = false;
+                        updateStatusIndicator(config.key, 'error', `加载失败: ${error.message}`);
+                    }
+                }
+                
+                // 检查是否所有必需的文件都已加载
+                const essentialFilesLoaded = dataStore.loaded.enemyId && 
+                                          dataStore.loaded.gameText && 
+                                          dataStore.loaded.weakId;
+                
+                if (essentialFilesLoaded) {
+                    // 启用查询按钮
+                    searchBtn.disabled = false;
+                    
+                    // 检查是否有文件加载失败
+                    const failedFiles = fileConfigs.filter(config => !dataStore.loaded[config.key]);
+                    
+                    if (failedFiles.length === 0) {
+                        alert('所有数据文件已成功加载！现在可以查询敌人数据。');
+                    } else {
+                        alert(`基本数据文件已加载，但 ${failedFiles.length} 个文件加载失败。部分功能可能受限。`);
+                    }
+                } else {
+                    alert('基本数据文件加载失败，无法进行查询。请检查文件路径并重试。');
+                }
+                
+            } catch (error) {
+                console.error('加载数据时发生错误:', error);
+                alert('加载数据时发生错误: ' + error.message);
+            } finally {
+                // 恢复加载按钮
+                loadDataBtn.disabled = false;
+                loadDataBtn.textContent = '重新加载数据文件';
+            }
+        }
+
+        // 通过ID获取道具名称
+        function getItemName(itemId) {
+            if (!itemId || itemId === 0 || !dataStore.itemListData || !dataStore.gameTextItemData) {
+                return `道具 ${itemId}`;
+            }
+            
+            // 在ItemList.json中查找道具
+            const itemData = dataStore.itemListData.find(item => item.m_id === itemId);
+            if (!itemData) {
+                return `道具 ${itemId}`;
+            }
+            
+            // 获取名称ID
+            const nameId = itemData.m_NameID;
+            if (!nameId || nameId === 0) {
+                return `道具 ${itemId}`;
+            }
+            
+            // 在GameTextItem.json中查找名称
+            const nameData = dataStore.gameTextItemData.find(item => item.m_id === nameId);
+            if (nameData && nameData.m_gametext && Array.isArray(nameData.m_gametext)) {
+                // 返回第一个非空名称
+                for (const text of nameData.m_gametext) {
+                    if (text && text.trim() !== '') {
+                        return text;
+                    }
+                }
+            }
+            
+            return `道具 ${itemId}`;
+        }
+
+        // 获取道具卖价
+        function getItemSellPrice(itemId) {
+            if (!itemId || itemId === 0 || !dataStore.itemListData) {
+                return 0;
+            }
+            
+            const itemData = dataStore.itemListData.find(item => item.m_id === itemId);
+            return itemData ? (itemData.m_SellValue || 0) : 0;
+        }
+
+        // 获取掉落信息
+        function getDropInfo(dropId, type = '掉落') {
+            if (!dropId || dropId === 0 || !dataStore.enemyDropData) {
+                return [];
+            }
+            
+            // 在EnemyDropID.json中查找掉落信息
+            const dropData = dataStore.enemyDropData.find(item => item.m_id === dropId);
+            if (!dropData) {
+                return [];
+            }
+            
+            const dropInfoList = [];
+            
+            // 遍历所有可能的掉落
+            for (let i = 0; i < dropData.m_ItemId.length; i++) {
+                const itemId = dropData.m_ItemId[i];
+                const dropRate = dropData.m_DropRates[i];
+                const baseCount = dropData.m_DropCntF[i];
+                const randomCount = dropData.m_DropCntR[i];
+                
+                // 如果道具ID为0或掉落率为0，跳过
+                if (!itemId || itemId === 0 || !dropRate || dropRate === 0) {
+                    continue;
+                }
+                
+                // 获取道具名称和卖价
+                const itemName = getItemName(itemId);
+                const itemPrice = getItemSellPrice(itemId);
+                
+                // 计算数量和总价值
+                let countText, valueText;
+                
+                if (randomCount > 0) {
+                    // 有随机数量
+                    const minCount = baseCount;
+                    const maxCount = baseCount + randomCount;
+                    const minValue = minCount * itemPrice;
+                    const maxValue = maxCount * itemPrice;
+                    
+                    countText = `${minCount}-${maxCount}`;
+                    valueText = `${minValue}-${maxValue}`;
+                } else {
+                    // 固定数量
+                    const totalValue = baseCount * itemPrice;
+                    countText = `${baseCount}`;
+                    valueText = `${totalValue}`;
+                }
+                
+                dropInfoList.push({
+                    type,
+                    rate: dropRate,
+                    name: itemName,
+                    count: countText,
+                    value: valueText
+                });
+            }
+            
+            return dropInfoList;
+        }
+
+        // 获取技能组信息
+        function getSkillGroupInfo(skillsId) {
+            if (!skillsId || skillsId === 0 || !dataStore.tacticalSkillData || !dataStore.skillIdData || !dataStore.gameTextSkillData) {
+                return [];
+            }
+            
+            // 在TacticalSkillList.json中查找技能组
+            const tacticalData = dataStore.tacticalSkillData.find(item => item.m_id === skillsId);
+            if (!tacticalData || !tacticalData.m_UseSkills) {
+                return [];
+            }
+            
+            const skillList = [];
+            
+            // 遍历技能列表，过滤掉0值
+            for (const skillId of tacticalData.m_UseSkills) {
+                if (skillId && skillId !== 0) {
+                    // 在SkillID.json中查找技能
+                    const skillData = dataStore.skillIdData.find(item => item.m_id === skillId);
+                    if (skillData) {
+                        // 获取技能名称
+                        const nameId = skillData.m_Name;
+                        let skillName = `技能 ${skillId}`;
+                        
+                        if (nameId && nameId !== 0 && dataStore.gameTextSkillData) {
+                            // 在GameTextSkill.json中查找名称
+                            const nameData = dataStore.gameTextSkillData.find(item => item.m_id === nameId);
+                            if (nameData && nameData.m_gametext && Array.isArray(nameData.m_gametext)) {
+                                // 返回第一个非空名称
+                                for (const text of nameData.m_gametext) {
+                                    if (text && text.trim() !== '') {
+                                        skillName = text;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        
+                        skillList.push({
+                            id: skillId,
+                            name: skillName
+                        });
+                    }
+                }
+            }
+            
+            return skillList;
+        }
+
+        // 查找敌人ID（通过m_gametext模糊匹配）
+        function findEnemyIdsByName(searchTerm) {
+            const foundIds = new Set();
+            
+            if (!dataStore.gameTextData || !Array.isArray(dataStore.gameTextData)) {
+                return Array.from(foundIds);
+            }
+            
+            const lowerSearchTerm = searchTerm.toLowerCase();
+            
+            // 在GameTextEnemy.json中查找
+            for (const item of dataStore.gameTextData) {
+                if (item.m_gametext && Array.isArray(item.m_gametext)) {
+                    // 查找m_gametext数组中是否有包含搜索词的字符串
+                    for (const text of item.m_gametext) {
+                        if (text && text.toLowerCase().includes(lowerSearchTerm)) {
+                            foundIds.add(item.m_id);
+                            break; // 找到一个匹配就跳出内层循环
+                        }
+                    }
+                }
+            }
+            
+            return Array.from(foundIds);
+        }
+
+        // 获取弱点字符串
+        function getWeaknessString(weakId, sld) {
+            if (!weakId || !dataStore.weakIdData) {
+                return sld > 0 ? `${sld}/无` : '无';
+            }
+            
+            // 在EnemyWeakID.json中查找对应记录
+            const weakData = dataStore.weakIdData.find(item => item.m_id === weakId);
+            if (!weakData) {
+                return sld > 0 ? `${sld}/无` : '无';
+            }
+            
+            // 生成武器弱点字符串
+            let weaponWeakness = '';
+            if (weakData.m_ResistWeapon && Array.isArray(weakData.m_ResistWeapon)) {
+                for (let i = 0; i < weakData.m_ResistWeapon.length; i++) {
+                    if (weakData.m_ResistWeapon[i] === 1) {
+                        weaponWeakness += weaponWeaknessMap[i] || '未知';
+                    }
+                }
+            }
+            
+            // 生成魔法弱点字符串
+            let magicWeakness = '';
+            if (weakData.m_ResistMagic && Array.isArray(weakData.m_ResistMagic)) {
+                for (let i = 0; i < weakData.m_ResistMagic.length; i++) {
+                    if (weakData.m_ResistMagic[i] === 1) {
+                        magicWeakness += magicWeaknessMap[i] || '未知';
+                    }
+                }
+            }
+            
+            // 组合弱点字符串
+            let weaknessString = weaponWeakness + magicWeakness;
+            if (weaknessString === '') weaknessString = '无';
+            
+            // 添加盾数前缀
+            if (sld > 0) {
+                weaknessString = sld + '/' + weaknessString;
+            }
+            
+            return weaknessString;
+        }
+
+        // 获取敌人名称
+        function getEnemyName(enemyId) {
+            if (!dataStore.gameTextData || !Array.isArray(dataStore.gameTextData)) {
+                return `敌人 ${enemyId}`;
+            }
+            
+            const gameTextItem = dataStore.gameTextData.find(item => item.m_id === enemyId);
+            if (gameTextItem && gameTextItem.m_gametext && Array.isArray(gameTextItem.m_gametext)) {
+                // 返回第一个非空名称
+                for (const text of gameTextItem.m_gametext) {
+                    if (text && text.trim() !== '') {
+                        return text;
+                    }
+                }
+            }
+            
+            return `敌人 ${enemyId}`;
+        }
+
+        // 查询敌人数据
+        function searchEnemy() {
+            const searchTerm = searchInput.value.trim();
+            
+            if (!searchTerm) {
+                alert('请输入敌人名称进行查询');
+                searchInput.focus();
+                return;
+            }
+            
+            // 检查基本数据是否已加载
+            if (!dataStore.loaded.enemyId || !dataStore.loaded.gameText || !dataStore.loaded.weakId) {
+                alert('请先加载基本数据文件');
+                return;
+            }
+            
+            // 显示加载指示器
+            loadingIndicator.classList.add('active');
+            noResultMessage.style.display = 'none';
+            resultContainer.classList.remove('active');
+            enemyResults.innerHTML = '';
+            
+            // 使用setTimeout模拟异步操作，避免UI冻结
+            setTimeout(() => {
+                try {
+                    // 1. 通过名称查找敌人ID（模糊查询）
+                    const idsByName = findEnemyIdsByName(searchTerm);
+                    
+                    // 2. 合并所有ID（去重）
+                    const allEnemyIds = [...new Set([...idsByName])];
+                    
+                    if (allEnemyIds.length === 0) {
+                        showNoResult('未找到名称或显示名称包含 "' + searchTerm + '" 的敌人');
+                        return;
+                    }
+                    
+                    // 3. 收集所有敌人数据
+                    const enemyDataList = [];
+                    
+                    for (const enemyId of allEnemyIds) {
+                        // 在EnemyID.json中查找对应的记录
+                        const enemyData = dataStore.enemyIdData.filter(item => item.m_DisplayName === enemyId);
+
+                        if (enemyData.length > 0) {
+                            for (const enemy of enemyData) {
+                                // 提取所需字段
+                                const extractedData = {
+                                    id: enemy.m_id,
+                                    name: getEnemyName(enemy.m_DisplayName),
+                                    level: enemy.m_DisplayLevel || '-',
+                                    hp: enemy.m_MaxHP || '-',
+                                    sp: enemy.m_MaxSP || '-',
+                                    atkP: enemy.m_AtkP || '-',
+                                    defP: enemy.m_DefP || '-',
+                                    atkM: enemy.m_AtkM || '-',
+                                    defM: enemy.m_DefM || '-',
+                                    agi: enemy.m_Agi || '-',
+                                    crt: enemy.m_Crt || '-',
+                                    hit: enemy.m_Hit || '-',
+                                    avd: enemy.m_Avd || '-',
+                                    damageRate: enemy.m_DamageRate || '-',
+                                    sld: enemy.m_MaxSLD || 0,
+                                    isBoss: enemy.m_IsBoss ? '是' : '否',
+                                    exp: enemy.m_Exp || '-',
+                                    money: enemy.m_Money || '-',
+                                    stealLeafNum: enemy.m_StealLeafNum || 0,
+                                    jp: enemy.m_JP || '-',
+                                    skillsId: enemy.m_SkillsID || '-',
+                                    weakId: enemy.m_WeakID || null,
+                                    displayName: enemy.m_DisplayName || '',
+                                    dropReward: enemy.m_DropReward || 0,
+                                    stealReward: enemy.m_StealReward || 0
+                                };
+                                
+                                // 获取弱点字符串
+                                extractedData.weakness = getWeaknessString(extractedData.weakId, extractedData.sld);
+                                
+                                // 获取掉落和偷取信息
+                                extractedData.dropInfo = getDropInfo(extractedData.dropReward, '掉落');
+                                extractedData.stealInfo = getDropInfo(extractedData.stealReward, '偷取');
+                                
+                                // 获取技能组信息（用于悬停提示）
+                                if (extractedData.skillsId && extractedData.skillsId !== '-' && extractedData.skillsId !== 0) {
+                                    extractedData.skillList = getSkillGroupInfo(extractedData.skillsId);
+                                } else {
+                                    extractedData.skillList = [];
+                                }
+                                
+                                enemyDataList.push(extractedData);
+                            }
+                        }
+                    }
+                    
+                    if (enemyDataList.length === 0) {
+                        showNoResult('找到匹配的ID但未找到对应的属性数据');
+                        return;
+                    }
+                    
+                    // 5. 更新UI显示结果
+                    displayResults(enemyDataList, searchTerm);
+                    
+                } catch (error) {
+                    console.error('查询过程中发生错误:', error);
+                    showNoResult('查询过程中发生错误: ' + error.message);
+                } finally {
+                    // 隐藏加载指示器
+                    loadingIndicator.classList.remove('active');
+                    // 将光标回定位到输入框
+                    searchInput.focus();
+                    searchInput.select();
+                }
+            }, 100); // 短暂延迟，让UI有机会更新
+        }
+
+        // 显示未找到结果
+        function showNoResult(message) {
+            noResultMessage.innerHTML = `<p>${message}</p><p>请尝试其他名称或检查数据文件。</p>`;
+            noResultMessage.style.display = 'block';
+            resultContainer.classList.remove('active');
+            loadingIndicator.classList.remove('active');
+            
+            // 将光标回定位到输入框
+            searchInput.focus();
+            searchInput.select();
+        }
+
+        // 显示查询结果（多个）
+        function displayResults(enemyDataList, searchTerm) {
+            // 更新结果计数
+            const count = enemyDataList.length;
+            resultCount.textContent = `找到 ${count} 个匹配的敌人（搜索词："${searchTerm}"）`;
+            
+            // 清空之前的结果
+            enemyResults.innerHTML = '';
+            
+            // 为每个敌人创建卡片
+            for (const enemyData of enemyDataList) {
+                const enemyCard = document.createElement('div');
+                enemyCard.className = 'enemy-card';
+                
+                // 创建金钱显示HTML（如果需要显示偷叶数量）
+                let moneyHtml = `${enemyData.money}`;
+                if (enemyData.stealLeafNum > 0 && enemyData.stealLeafNum !== enemyData.money) {
+                    moneyHtml = `${enemyData.money}<span class="money-note">(偷叶: ${enemyData.stealLeafNum})</span>`;
+                }
+                
+                // 创建技能组HTML（带悬停提示）
+                let skillsHtml = `${enemyData.skillsId}`;
+                let skillsTooltipHtml = '';
+                
+                if (enemyData.skillList && enemyData.skillList.length > 0) {
+                    skillsHtml = `<span class="skills-value">${enemyData.skillsId}</span>`;
+                    skillsTooltipHtml = `
+                        <div class="skills-tooltip">
+                            <div class="weakness-label">技能列表 (${enemyData.skillList.length}个)</div>
+                            <ul class="skill-list">
+                                ${enemyData.skillList.map(skill => `<li>${skill.name} (ID: ${skill.id})</li>`).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+                
+                // 创建掉落信息HTML
+                let dropInfoHtml = '';
+                let stealInfoHtml = '';
+                
+                if (enemyData.dropInfo && enemyData.dropInfo.length > 0) {
+                    dropInfoHtml = `
+                        <div class="drop-info">
+                            <div class="drop-label">掉落</div>
+                            <ul class="drop-list">
+                                ${enemyData.dropInfo.map(drop => 
+                                    `<li>${drop.rate}% ${drop.name} x ${drop.count} (价值：${drop.value})</li>`
+                                ).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+                
+                if (enemyData.stealInfo && enemyData.stealInfo.length > 0) {
+                    stealInfoHtml = `
+                        <div class="drop-info">
+                            <div class="drop-label">偷取</div>
+                            <ul class="drop-list">
+                                ${enemyData.stealInfo.map(steal => 
+                                    `<li>${steal.rate}% ${steal.name} x ${steal.count} (价值：${steal.value})</li>`
+                                ).join('')}
+                            </ul>
+                        </div>
+                    `;
+                }
+                
+                // 创建敌人卡片HTML
+                enemyCard.innerHTML = `
+                    <div class="enemy-header">
+                        <div class="enemy-name-id">
+                            <div class="enemy-name">${enemyData.name}</div>
+                            <div class="enemy-id">敌人ID: ${enemyData.id} ${enemyData.displayName ? `(显示名称: ${enemyData.displayName})` : ''}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">LV</div>
+                            <div class="stat-value">${enemyData.level}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">HP</div>
+                            <div class="stat-value">${enemyData.hp}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">SP</div>
+                            <div class="stat-value">${enemyData.sp}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">物攻</div>
+                            <div class="stat-value">${enemyData.atkP}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">魔攻</div>
+                            <div class="stat-value">${enemyData.atkM}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">物防</div>
+                            <div class="stat-value">${enemyData.defP}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">魔防</div>
+                            <div class="stat-value">${enemyData.defM}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">命中</div>
+                            <div class="stat-value">${enemyData.hit}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">速度</div>
+                            <div class="stat-value">${enemyData.agi}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">暴击</div>
+                            <div class="stat-value">${enemyData.crt}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">回避</div>
+                            <div class="stat-value">${enemyData.avd}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">EXP</div>
+                            <div class="stat-value">${enemyData.exp}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">JP</div>
+                            <div class="stat-value">${enemyData.jp}</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">金钱</div>
+                            <div class="stat-value">${moneyHtml}</div>
+                        </div>
+                        <div class="stat-item skills-item">
+                            <div class="stat-label">技能组</div>
+                            <div class="stat-value">${skillsHtml}</div>
+                            ${skillsTooltipHtml}
+                        </div>
+                    </div>
+                    
+                    <div class="special-stats">
+                        <div class="special-stat">
+                            <div class="stat-label">伤害倍率</div>
+                            <div class="stat-value">${enemyData.damageRate}</div>
+                        </div>
+                        <div class="special-stat">
+                            <div class="stat-label">是否Boss</div>
+                            <div class="stat-value">${enemyData.isBoss}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="weakness-container">
+                        <div class="weakness-label">弱点</div>
+                        <div class="weakness-value">${enemyData.weakness}</div>
+                    </div>
+                    
+                    ${dropInfoHtml}
+                    ${stealInfoHtml}
+                `;
+                
+                enemyResults.appendChild(enemyCard);
+            }
+            
+            // 显示结果区域
+            noResultMessage.style.display = 'none';
+            resultContainer.classList.add('active');
+        }
+
+        // 事件监听器
+        loadDataBtn.addEventListener('click', loadAllData);
+        searchBtn.addEventListener('click', searchEnemy);
+        
+        // 支持按Enter键进行查询
+        searchInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter' && !searchBtn.disabled) {
+                searchEnemy();
+            }
+        });
+        
+        // 初始化页面
+        window.addEventListener('DOMContentLoaded', function() {
+            // 初始化状态指示器
+            initStatusIndicators();
+            
+            // 将焦点设置到加载按钮
+            loadDataBtn.focus();
+        });
+    </script>
+</body>
+</html>
