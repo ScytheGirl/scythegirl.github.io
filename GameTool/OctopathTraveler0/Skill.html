@@ -1,0 +1,2129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技能数据查询工具</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #4cc9f0;
+        }
+        
+        h1 {
+            color: #4cc9f0;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
+        }
+        
+        .subtitle {
+            color: #a0a0c0;
+            font-size: 1.1rem;
+        }
+        
+        .controls {
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 15px;
+            background-color: #0f3460;
+            border: 1px solid #4cc9f0;
+            border-radius: 6px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #72efdd;
+            box-shadow: 0 0 0 2px rgba(114, 239, 221, 0.2);
+        }
+        
+        .search-btn {
+            background-color: #7209b7;
+            color: white;
+            padding: 0 30px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            background-color: #5a08a3;
+        }
+        
+        .search-btn:disabled {
+            background-color: #555;
+            cursor: not-allowed;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .loading.active {
+            display: block;
+        }
+        
+        .spinner {
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 5px solid #4cc9f0;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .data-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background-color: #0f3460;
+            border-radius: 6px;
+            border-left: 4px solid #555;
+        }
+        
+        .status-item.loaded {
+            border-left-color: #4ade80;
+        }
+        
+        .status-item.error {
+            border-left-color: #f72585;
+        }
+        
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #555;
+        }
+        
+        .status-dot.loaded {
+            background-color: #4ade80;
+        }
+        
+        .status-dot.error {
+            background-color: #f72585;
+        }
+        
+        .status-info {
+            flex: 1;
+        }
+        
+        .status-name {
+            color: #a0c4ff;
+            font-weight: 500;
+        }
+        
+        .status-text {
+            color: #e0e0e0;
+            font-size: 0.9rem;
+        }
+        
+        .results {
+            margin-top: 20px;
+        }
+        
+        .result-count {
+            background-color: #16213e;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #a0c4ff;
+            text-align: center;
+        }
+        
+        .skill-card {
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            border-left: 5px solid #4cc9f0;
+        }
+        
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(76, 201, 240, 0.3);
+        }
+        
+        .skill-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #a0c4ff;
+        }
+        
+        .skill-id {
+            background: #0f3460;
+            color: #72efdd;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+        
+        .skill-description {
+            color: #c0c0e0;
+            margin-bottom: 25px;
+            font-style: italic;
+            line-height: 1.8;
+            padding: 15px;
+            background-color: #0f3460;
+            border-radius: 8px;
+        }
+        
+        .skill-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background-color: #0f3460;
+            border-radius: 8px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .info-label {
+            font-size: 0.9rem;
+            color: #72efdd;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+        
+        .effect-details {
+            margin-top: 25px;
+        }
+        
+        .effect-header {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #72efdd;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(114, 239, 221, 0.3);
+        }
+        
+        .effect-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #0f3460;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: #e0e0e0;
+            border-left: 4px solid #7209b7;
+        }
+        
+        .effect-item span {
+            font-family: 'Courier New', monospace;
+        }
+        
+        .match-rate {
+            display: inline-block;
+            padding: 3px 10px;
+            background-color: #f72585;
+            color: white;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+            vertical-align: middle;
+            font-weight: 600;
+        }
+        
+        .match-rate.high {
+            background-color: #4ade80;
+        }
+        
+        .match-rate.medium {
+            background-color: #ffbe0b;
+        }
+        
+        .error-message {
+            background-color: rgba(247, 37, 133, 0.1);
+            border: 1px solid #f72585;
+            color: #f72585;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #a0a0c0;
+            font-size: 1.2rem;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 10px;
+            color: #a0c4ff;
+        }
+        
+        .success-message {
+            background-color: rgba(74, 222, 128, 0.1);
+            border: 1px solid #4ade80;
+            color: #4ade80;
+            padding: 12px 20px;
+            border-radius: 6px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .success-message.hidden {
+            display: none;
+        }
+        
+        .success-icon {
+            font-size: 1.2rem;
+        }
+        
+        .success-text {
+            flex: 1;
+        }
+        
+        /* 伤害计算器样式 */
+        .damage-calculator {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            background-color: #0f3460;
+            border: 2px solid #4cc9f0;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            width: 380px;
+            max-width: 90vw;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .calculator-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(76, 201, 240, 0.3);
+        }
+        
+        .calculator-title {
+            color: #72efdd;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        
+        .close-calculator {
+            background: none;
+            border: none;
+            color: #f72585;
+            font-size: 1.5rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .calculator-form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .form-group.row {
+            flex-direction: row;
+            gap: 10px;
+            align-items: flex-end;
+        }
+        
+        .form-label {
+            color: #a0c4ff;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            padding: 8px;
+            background-color: #16213e;
+            border: 1px solid #4cc9f0;
+            border-radius: 4px;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #72efdd;
+        }
+        
+        .form-input.small {
+            width: 70px;
+            text-align: center;
+        }
+        
+        .form-input.medium {
+            width: 90px;
+        }
+        
+        .calculator-result {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #16213e;
+            border-radius: 6px;
+            border-left: 4px solid #4ade80;
+        }
+        
+        .result-title {
+            color: #72efdd;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .result-value {
+            color: #ffffff;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 5px 0;
+        }
+        
+        .disclaimer {
+            color: #a0a0c0;
+            font-size: 0.75rem;
+            text-align: center;
+            margin-top: 5px;
+            font-style: italic;
+        }
+        
+        .formula-link {
+            color: #ffbe0b;
+            text-decoration: none;
+            cursor: pointer;
+            border-bottom: 1px dashed #ffbe0b;
+            transition: all 0.2s;
+            padding: 0 2px;
+        }
+        
+        .formula-link:hover {
+            color: #ffd166;
+            border-bottom: 1px solid #ffd166;
+        }
+        
+        .calc-btn {
+            background-color: #7209b7;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 5px;
+        }
+        
+        .calc-btn:hover {
+            background-color: #5a08a3;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-btn {
+                padding: 15px;
+            }
+            
+            .data-status {
+                grid-template-columns: 1fr;
+            }
+            
+            .skill-info {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .skill-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .skill-id {
+                align-self: flex-start;
+            }
+            
+            .damage-calculator {
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                top: 50% !important;
+                transform: translate(-50%, -50%) !important;
+            }
+            
+            .form-group.row {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .form-input.small,
+            .form-input.medium {
+                max-width: calc(77% - 6px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 技能数据查询工具</h1>
+            <p class="subtitle">数据提取：Iris小艾老师@bilibili，程序开发：ScytheGirl@github</p>
+            <p class="subtitle">基于JSON数据文件的技能效果查询系统</p>
+        </header>
+        
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="请输入技能名称关键词（支持空格分隔多个关键词）" autocomplete="off">
+                <button class="search-btn" id="searchBtn" disabled>搜索</button>
+            </div>
+            
+            <div class="data-status" id="statusIndicators">
+                <!-- 状态将通过JS动态生成 -->
+            </div>
+            
+            <div class="success-message hidden" id="successMessage">
+                <span class="success-icon">✓</span>
+                <span class="success-text" id="successText">所有数据文件已成功加载！现在可以查询技能数据。</span>
+            </div>
+            
+            <div class="loading" id="loadingIndicator">
+                <div class="spinner"></div>
+                <p>正在加载数据，请稍候...</p>
+            </div>
+        </div>
+        
+        <div class="results" id="results">
+            <!-- 结果将通过JS动态生成 -->
+        </div>
+        
+        <!-- 伤害计算器浮动层 -->
+        <div class="damage-calculator" id="damageCalculator">
+            <div class="calculator-header">
+                <div class="calculator-title">简易伤害计算器</div>
+                <button class="close-calculator" id="closeCalculator">×</button>
+            </div>
+            <div class="calculator-form" id="calculatorForm">
+                <!-- 表单内容将通过JS动态生成 -->
+            </div>
+            <div class="calculator-result" id="calculatorResult" style="display: none;">
+                <div class="result-title">伤害计算结果</div>
+                <div class="result-value" id="damageResult">0</div>
+                <div class="disclaimer">※ 计算结果仅供参考，实际伤害以游戏内为准</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 全局数据存储
+        let gameTextSkillData = [];      // GameTextSkill.json 数据
+        let skillIDData = [];            // SkillID.json 数据
+        let skillAvailData = [];         // SkillAvailID.json 数据
+        let ailmentTypeData = [];        // SkillAilmentType.json 数据
+        let gameTextUIData = [];         // GameTextUI.json 数据
+        let skillHitRateData = [];       // SkillHitRateList.json 数据
+        let skillBoardData = [];         // SkillBoardData.json 数据
+        let specialSkillGrowthData = []; // SpecialSkillGrowthList.json 数据
+        
+        // 数据映射表，用于快速查找
+        let gameTextSkillMap = new Map();     // m_id -> 文本
+        let skillIDMap = new Map();           // m_id -> 技能数据
+        let skillAvailMap = new Map();        // m_id -> avail数据
+        let ailmentTypeMap = new Map();       // m_id -> 异常状态数据
+        let gameTextUIMap = new Map();        // m_id -> UI文本
+        let skillHitRateMap = new Map();      // m_id -> 命中率数据
+        let skillBoardMap = new Map();        // m_PlayerID -> 技能板数据
+        let specialSkillMap = new Map();      // m_SkillID -> 特殊技能数据
+        
+        // 角色ID和名字的对应关系表
+        const charaName = {
+            "10101":"维阿特鲁","10201":"雷梅","10302":"路德","10402":"卡琳达","10503":"凯路扎斯",
+            "10603":"海德内","10704":"埃斯佩路","10804":"梅西","10905":"弗恩","11005":"戴莉蒂娅",
+            "11106":"皮乌斯","11206":"罗拉娜","11307":"赛卢克","11407":"阿蕾可西雅","11508":"古德温",
+            "11608":"西尔莎","20101":"欧尔贝克","20202":"特蕾莎","20303":"泰里翁","20404":"亚芬",
+            "20505":"海茵特","20606":"欧菲莉亚","20707":"赛拉斯","20808":"普里姆萝洁","30103":"巴鲁杰罗",
+            "30207":"阿拉乌妮","30301":"利夏尔","30407":"索隆","30501":"艾特里克斯","30701":"隆德",
+            "30808":"塔图洛克","40204":"斯蒂娅","50101":"萨赞特斯","50201":"艾尔","60107":"艾拉",
+            "900":"主角","901":"主角（剑士）","902":"主角（药师）","903":"主角（盗贼）",
+            "904":"主角（学者）","905":"主角（神官）","906":"主角（猎人）","907":"主角（商人）",
+            "908":"主角（舞娘）"
+        };
+        
+        // 物理属性映射
+        const weaponIconMapping = {
+            0: '无效', 1: '剑', 2: '枪', 3: '刃', 4: '斧',
+            5: '弓', 6: '杖', 7: '书', 8: '扇', 9: '无属性'
+        };
+        
+        // 魔法属性映射
+        const magicIconMapping = {
+            0: '无效', 1: '火', 2: '冰', 3: '雷', 4: '风',
+            5: '光', 6: '暗', 7: '无属性'
+        };
+        
+        // 技能类型映射（基础）
+        const categoryMapping = {
+            0: '特殊技能', 1: '主动技能', 2: '被动技能', 
+            4: '敌人技能', 8: '道具效果'
+        };
+        
+        // 目标类型映射
+        const targetTypeMapping = {
+            1: '敌单体', 2: '敌全体', 3: '敌随机', 4: '我随机',
+            5: '自己', 7: '前卫全列', 8: '自己', 12: '我单体HP0',
+            13: '空位', 14: '命中者', 20: '我全体', 30: '我单体',
+            214: '我全体', 224: '前/后全列', 225: '友单体', 226: '前/后全列'
+        };
+
+        // 数据状态跟踪
+        const dataStatus = {
+            gameTextSkill: { loaded: false, count: 0 },
+            skillID: { loaded: false, count: 0 },
+            skillAvail: { loaded: false, count: 0 },
+            ailmentType: { loaded: false, count: 0 },
+            gameTextUI: { loaded: false, count: 0 },
+            skillHitRate: { loaded: false, count: 0 },
+            skillBoard: { loaded: false, count: 0 },
+            specialSkillGrowth: { loaded: false, count: 0 }
+        };
+
+        // DOM元素
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        const resultsDiv = document.getElementById('results');
+        const statusIndicators = document.getElementById('statusIndicators');
+        const successMessage = document.getElementById('successMessage');
+        const successText = document.getElementById('successText');
+        const damageCalculator = document.getElementById('damageCalculator');
+        const closeCalculator = document.getElementById('closeCalculator');
+        const calculatorForm = document.getElementById('calculatorForm');
+        const calculatorResult = document.getElementById('calculatorResult');
+        const damageResult = document.getElementById('damageResult');
+
+        // 当前计算器相关的数据
+        let currentCalculatorData = {
+            calcType: null,
+            values: [],
+            ratios: [],
+            valueDisplay: '',
+            ratioDisplay: '',
+            bpLevels: 0,
+            valueHasBP: false,
+            ratioHasBP: false
+        };
+        
+        // 用于跟踪计算器位置和链接元素
+        let currentLinkElement = null;
+        let calculatorVisible = false;
+        let lastValueBP = 0;
+        let lastValueAtkP = 200;
+        let lastValueDefP = 50;
+        let lastValueAtkM = 200;
+        let lastValueDefM = 50;
+        let lastValueRatio = 1.00;
+
+        // 初始化状态指示器
+        function initStatusIndicators() {
+            const statusConfigs = [
+                { key: 'gameTextSkill', name: '技能名称数据', file: 'GameTextSkill.json' },
+                { key: 'skillID', name: '技能属性数据', file: 'SkillID.json' },
+                { key: 'skillAvail', name: '技能效果数据', file: 'SkillAvailID.json' },
+                { key: 'ailmentType', name: '异常状态数据', file: 'SkillAilmentType.json' },
+                { key: 'gameTextUI', name: 'UI文本数据', file: 'GameTextUI.json' },
+                { key: 'skillHitRate', name: '命中率数据', file: 'SkillHitRateList.json' },
+                { key: 'skillBoard', name: '技能板数据', file: 'SkillBoardData.json' },
+                { key: 'specialSkillGrowth', name: '特殊技能数据', file: 'SpecialSkillGrowthList.json' }
+            ];
+            
+            statusIndicators.innerHTML = '';
+            
+            statusConfigs.forEach(config => {
+                const statusItem = document.createElement('div');
+                statusItem.className = 'status-item';
+                statusItem.id = `status-${config.key}`;
+                
+                statusItem.innerHTML = `
+                    <span class="status-dot"></span>
+                    <div class="status-info">
+                        <div class="status-name">${config.name}</div>
+                        <div class="status-text" id="status-text-${config.key}">未加载</div>
+                    </div>
+                `;
+                
+                statusIndicators.appendChild(statusItem);
+            });
+        }
+
+        // 更新状态指示器
+        function updateStatusIndicator(key, status, message = null) {
+            const statusItem = document.getElementById(`status-${key}`);
+            const statusDot = statusItem.querySelector('.status-dot');
+            const statusText = document.getElementById(`status-text-${key}`);
+            
+            // 移除所有状态类
+            statusItem.classList.remove('loaded', 'error');
+            statusDot.classList.remove('loaded', 'error');
+            
+            if (status === 'loading') {
+                statusText.textContent = message || '加载中...';
+            } else if (status === 'loaded') {
+                statusItem.classList.add('loaded');
+                statusDot.classList.add('loaded');
+                statusText.textContent = message || '已加载';
+            } else if (status === 'error') {
+                statusItem.classList.add('error');
+                statusDot.classList.add('error');
+                statusText.textContent = message || '加载失败';
+            }
+        }
+
+        // 显示成功消息
+        function showSuccessMessage(message) {
+            successText.textContent = message;
+            successMessage.classList.remove('hidden');
+            
+            // 5秒后自动隐藏消息
+            setTimeout(() => {
+                successMessage.classList.add('hidden');
+            }, 5000);
+        }
+
+        // 从服务器加载JSON文件
+        async function loadJsonFile(fileName) {
+            try {
+                const response = await fetch(fileName);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error(`加载文件 ${fileName} 失败:`, error);
+                throw error;
+            }
+        }
+
+        // 提取数据数组（根据提供的JSON结构）
+        function extractDataArray(data) {
+            // 根据描述：data[0]?.Properties?.Data?.m_DataList
+            if (Array.isArray(data) && data.length > 0) {
+                const firstItem = data[0];
+                if (firstItem && firstItem.Properties && firstItem.Properties.Data && firstItem.Properties.Data.m_DataList) {
+                    return firstItem.Properties.Data.m_DataList;
+                }
+            }
+            // 如果不符合上述结构，直接返回原数据
+            return data;
+        }
+
+        // 加载所有数据文件
+        async function loadAllData() {
+            try {
+                // 显示加载指示器
+                loadingIndicator.classList.add('active');
+                searchBtn.disabled = true;
+                successMessage.classList.add('hidden');
+                
+                // 初始化状态指示器
+                initStatusIndicators();
+                
+                // 文件配置列表
+                const fileConfigs = [
+                    { key: 'gameTextSkill', name: '技能名称数据', file: 'GameTextSkill.json' },
+                    { key: 'skillID', name: '技能属性数据', file: 'SkillID.json' },
+                    { key: 'skillAvail', name: '技能效果数据', file: 'SkillAvailID.json' },
+                    { key: 'ailmentType', name: '异常状态数据', file: 'SkillAilmentType.json' },
+                    { key: 'gameTextUI', name: 'UI文本数据', file: 'GameTextUI.json' },
+                    { key: 'skillHitRate', name: '命中率数据', file: 'SkillHitRateList.json' },
+                    { key: 'skillBoard', name: '技能板数据', file: 'SkillBoardData.json' },
+                    { key: 'specialSkillGrowth', name: '特殊技能数据', file: 'SpecialSkillGrowthList.json' }
+                ];
+                
+                // 加载所有文件
+                for (const config of fileConfigs) {
+                    try {
+                        updateStatusIndicator(config.key, 'loading', '加载中...');
+                        
+                        const rawData = await loadJsonFile(config.file);
+                        const extractedData = extractDataArray(rawData);
+                        
+                        // 存储到对应的数据变量
+                        switch(config.key) {
+                            case 'gameTextSkill':
+                                gameTextSkillData = extractedData;
+                                // 构建映射表：m_id -> 第一个非空文本
+                                for (const item of gameTextSkillData) {
+                                    if (item.m_id && Array.isArray(item.m_gametext)) {
+                                        const text = item.m_gametext.find(t => t && t.trim() !== '') || '';
+                                        gameTextSkillMap.set(item.m_id, text);
+                                    }
+                                }
+                                break;
+                            case 'skillID':
+                                skillIDData = extractedData;
+                                // 构建映射表：m_id -> 技能数据
+                                for (const skill of skillIDData) {
+                                    if (skill.m_id) {
+                                        skillIDMap.set(skill.m_id, skill);
+                                    }
+                                }
+                                break;
+                            case 'skillAvail':
+                                skillAvailData = extractedData;
+                                // 构建映射表：m_id -> avail数据
+                                for (const avail of skillAvailData) {
+                                    if (avail.m_id) {
+                                        skillAvailMap.set(avail.m_id, avail);
+                                    }
+                                }
+                                break;
+                            case 'ailmentType':
+                                ailmentTypeData = extractedData;
+                                // 构建映射表：m_id -> 异常状态数据
+                                for (const ailment of ailmentTypeData) {
+                                    if (ailment.m_id !== undefined) {
+                                        ailmentTypeMap.set(ailment.m_id, ailment);
+                                    }
+                                }
+                                break;
+                            case 'gameTextUI':
+                                gameTextUIData = extractedData;
+                                // 构建映射表：m_id -> UI文本
+                                for (const item of gameTextUIData) {
+                                    if (item.m_id && Array.isArray(item.m_gametext)) {
+                                        const text = item.m_gametext.find(t => t && t.trim() !== '') || '';
+                                        gameTextUIMap.set(item.m_id, text);
+                                    }
+                                }
+                                break;
+                            case 'skillHitRate':
+                                skillHitRateData = extractedData;
+                                // 构建映射表：m_id -> 命中率数据
+                                for (const hitRate of skillHitRateData) {
+                                    if (hitRate.m_id !== undefined) {
+                                        skillHitRateMap.set(hitRate.m_id, hitRate);
+                                    }
+                                }
+                                break;
+                            case 'skillBoard':
+                                skillBoardData = extractedData;
+                                // 构建映射表：m_PlayerID -> 技能板数据
+                                for (const board of skillBoardData) {
+                                    if (board.m_PlayerID !== undefined) {
+                                        skillBoardMap.set(board.m_PlayerID, board);
+                                    }
+                                }
+                                break;
+                            case 'specialSkillGrowth':
+                                specialSkillGrowthData = extractedData;
+                                // 构建映射表：m_SkillID -> 特殊技能数据
+                                for (const specialSkill of specialSkillGrowthData) {
+                                    if (specialSkill.m_SkillID !== undefined) {
+                                        specialSkillMap.set(specialSkill.m_SkillID, specialSkill);
+                                    }
+                                }
+                                break;
+                        }
+                        
+                        dataStatus[config.key].loaded = true;
+                        dataStatus[config.key].count = extractedData.length;
+                        updateStatusIndicator(config.key, 'loaded', `已加载 (${extractedData.length} 条记录)`);
+                        
+                    } catch (error) {
+                        console.error(`加载 ${config.name} 失败:`, error);
+                        dataStatus[config.key].loaded = false;
+                        updateStatusIndicator(config.key, 'error', `加载失败: ${error.message}`);
+                    }
+                }
+                
+                // 检查是否所有必需的文件都已加载
+                const essentialFilesLoaded = dataStatus.gameTextSkill.loaded && 
+                                          dataStatus.skillID.loaded && 
+                                          dataStatus.skillAvail.loaded;
+                
+                if (essentialFilesLoaded) {
+                    // 启用查询按钮
+                    searchBtn.disabled = false;
+                    
+                    // 检查是否有文件加载失败
+                    const failedFiles = fileConfigs.filter(config => !dataStatus[config.key].loaded);
+                    
+                    if (failedFiles.length === 0) {
+                        showSuccessMessage('所有数据文件已成功加载！现在可以查询技能数据。');
+                    } else {
+                        showSuccessMessage(`基本数据文件已加载，但 ${failedFiles.length} 个文件加载失败。部分功能可能受限。`);
+                    }
+                } else {
+                    showSuccessMessage('基本数据文件加载失败，无法进行查询。请检查文件路径并重试。');
+                }
+                
+            } catch (error) {
+                console.error('加载数据时发生错误:', error);
+                showSuccessMessage('加载数据时发生错误: ' + error.message);
+            } finally {
+                // 隐藏加载指示器
+                loadingIndicator.classList.remove('active');
+            }
+        }
+
+        // 搜索技能
+        async function searchSkills() {
+            const keywords = searchInput.value.trim();
+            if (!keywords) {
+                showError('请输入搜索关键词');
+                return;
+            }
+            
+            // 禁用搜索按钮，显示加载中
+            searchBtn.disabled = true;
+            searchBtn.textContent = '搜索中...';
+            resultsDiv.innerHTML = '<div class="loading active"><div class="spinner"></div><p>正在搜索，请稍候...</p></div>';
+            
+            try {
+                // 延迟执行，避免UI阻塞
+                setTimeout(() => {
+                    const results = performSearch(keywords);
+                    displayResults(results);
+                    searchBtn.disabled = false;
+                    searchBtn.textContent = '搜索';
+                }, 50);
+                
+            } catch (error) {
+                console.error('搜索失败:', error);
+                showError('搜索失败: ' + error.message);
+                searchBtn.disabled = false;
+                searchBtn.textContent = '搜索';
+            }
+        }
+
+        // 执行搜索逻辑
+        function performSearch(keywords) {
+            // 分割关键词
+            const keywordList = keywords.split(/\s+/).filter(k => k.length > 0);
+            
+            if (keywordList.length === 0) {
+                return [];
+            }
+            
+            // 在GameTextSkill中匹配文本
+            const matchedTextIds = [];
+            const matchScores = new Map(); // m_id -> 匹配度
+            
+            for (const [id, text] of gameTextSkillMap.entries()) {
+                let matchCount = 0;
+                
+                for (const keyword of keywordList) {
+                    if (text.includes(keyword)) {
+                        matchCount++;
+                    }
+                }
+                
+                const matchRate = matchCount / keywordList.length;
+                if (matchRate >= 0.75) {
+                    matchedTextIds.push(id);
+                    matchScores.set(id, matchRate);
+                }
+            }
+            
+            // 在SkillID中查找匹配的技能
+            const matchedSkills = [];
+            
+            for (const skill of skillIDData) {
+                if (!skill.m_id) continue;
+                
+                // 检查m_Name或m_Detail是否在匹配的文本ID中
+                const nameMatch = matchedTextIds.includes(skill.m_Name);
+                const detailMatch = matchedTextIds.includes(skill.m_Detail);
+                
+                if (nameMatch || detailMatch) {
+                    // 获取匹配度（取最大值）
+                    const nameScore = matchScores.get(skill.m_Name) || 0;
+                    const detailScore = matchScores.get(skill.m_Detail) || 0;
+                    const score = Math.max(nameScore, detailScore);
+                    
+                    matchedSkills.push({
+                        skill,
+                        matchScore: score,
+                        matchType: nameMatch ? '名称' : '描述'
+                    });
+                }
+            }
+            
+            // 按匹配度降序排序
+            matchedSkills.sort((a, b) => b.matchScore - a.matchScore);
+            
+            return matchedSkills;
+        }
+
+        // 查找技能对应的角色信息
+        function findSkillOwner(skillId, category, spCost) {
+            const result = {
+                owner: null,
+                canEssential: null,
+                isSpecialSkill: false,
+                isNPC: false,
+                isEssentialSkill: false
+            };
+            
+            // 只有类别为1或2的技能才查找
+            if (category !== 1 && category !== 2) {
+                return result;
+            }
+            
+            // 先查找SkillBoardData.json
+            for (const [playerId, boardData] of skillBoardMap.entries()) {
+                if (category === 1) {
+                    // 主动技能在m_SkillID中查找
+                    const skillIndex = boardData.m_SkillID.indexOf(skillId);
+                    if (skillIndex !== -1) {
+                        result.owner = charaName[playerId] || `角色${playerId}`;
+                        result.canEssential = boardData.m_CanNotEssential && boardData.m_CanNotEssential[skillIndex] === false;
+                        return result;
+                    }
+                } else if (category === 2) {
+                    // 被动技能在m_SupportSkillID中查找
+                    const skillIndex = boardData.m_SupportSkillID.indexOf(skillId);
+                    if (skillIndex !== -1) {
+                        result.owner = charaName[playerId] || `角色${playerId}`;
+                        result.canEssential = boardData.m_CanNotSupportEssential && boardData.m_CanNotSupportEssential[skillIndex] === false;
+                        return result;
+                    }
+                }
+            }
+            
+            // 如果没找到，再查找SpecialSkillGrowthList.json
+            const specialSkillData = specialSkillMap.get(skillId);
+            if (specialSkillData) {
+                const specialSkillId = specialSkillData.m_SpecialSkillID;
+                result.owner = charaName[specialSkillId] || `角色${specialSkillId}`;
+                result.isSpecialSkill = true;
+                result.canEssential = false; // 必杀技能无法精粹化
+                return result;
+            }
+            
+            // 如果还是没找到
+            if (category === 1 && spCost === 0) {
+                result.isNPC = true;
+            } else {
+                result.isEssentialSkill = true;
+            }
+            
+            return result;
+        }
+
+        // 提取技能基本信息
+        function extractSkillInfo(skill) {
+            const info = {
+                name: gameTextSkillMap.get(skill.m_Name) || '未知',
+                description: gameTextSkillMap.get(skill.m_Detail) || '',
+                attributes: '-',
+                category: categoryMapping[skill.m_Category] || '未知',
+                originalCategory: skill.m_Category,
+                spCost: skill.m_RequireValue || 0,
+                ownerInfo: null,
+                displayName: ''
+            };
+            
+            // 组合物理和魔法属性
+            const weaponAttr = weaponIconMapping[skill.m_WeaponIconType];
+            const magicAttr = magicIconMapping[skill.m_MagicIconType];
+            
+            if (weaponAttr !== '无效' && magicAttr !== '无效') {
+                info.attributes = `${weaponAttr}+${magicAttr}`;
+            } else if (weaponAttr !== '无效') {
+                info.attributes = weaponAttr;
+            } else if (magicAttr !== '无效') {
+                info.attributes = magicAttr;
+            }
+            
+            // 额外信息
+            if (skill.m_ReChargeTrun && skill.m_ReChargeTrun > 0) {
+                info.coolDown = skill.m_ReChargeTrun;
+            }
+            
+            // 获取Avail数据（用于获取暴击补正和破盾层数）
+            const availIds = (skill.m_Avails || []).filter(id => id > 0);
+            if (availIds.length > 0) {
+                const firstAvail = skillAvailMap.get(availIds[0]);
+                if (firstAvail) {
+                    info.critRate = firstAvail.m_CriticalRatio;
+                    info.shieldDamage = firstAvail.m_ShieldDamage;
+                }
+            }
+            
+            // 查找技能所有者信息
+            if (skill.m_Category === 1 || skill.m_Category === 2) {
+                info.ownerInfo = findSkillOwner(skill.m_id, skill.m_Category, info.spCost);
+                
+                // 根据所有者信息修改技能名称和类型
+                if (info.ownerInfo.owner) {
+                    info.displayName = `${info.name}【${info.ownerInfo.owner}】`;
+                    
+                    if (info.ownerInfo.isSpecialSkill) {
+                        info.category = '必杀技能';
+                    }
+                } else {
+                    info.displayName = info.name;
+                    
+                    if (info.ownerInfo.isNPC) {
+                        info.category = 'NPC技能';
+                    } else if (info.ownerInfo.isEssentialSkill) {
+                        if (skill.m_Category === 1) {
+                            info.category = '主动技能（精粹）';
+                        } else if (skill.m_Category === 2) {
+                            info.category = '被动技能（精粹）';
+                        }
+                    }
+                }
+            } else {
+                info.displayName = info.name;
+            }
+            
+            return info;
+        }
+
+        // 获取状态文本（用于m_AddAilment和m_SubAilment）
+        function getAilmentText(ailmentIds) {
+            const ailments = [];
+            
+            for (const ailmentId of ailmentIds) {
+                if (!ailmentId || ailmentId === 0) continue;
+                
+                const ailment = ailmentTypeMap.get(ailmentId);
+                if (ailment) {
+                    if (ailment.m_TextID && ailment.m_TextID > 0) {
+                        const text = gameTextUIMap.get(ailment.m_TextID);
+                        if (text) {
+                            ailments.push(text);
+                        } else {
+                            ailments.push(`<${ailment.m_Label || '未知'}>`);
+                        }
+                    } else {
+                        ailments.push(`<${ailment.m_Label || '未知'}>`);
+                    }
+                }
+            }
+            
+            return ailments.join('/');
+        }
+
+        // 生成技能效果描述
+        function generateSkillEffects(skill) {
+            const effects = [];
+            const availIds = (skill.m_Avails || []).filter(id => id > 0);
+            
+            // 计算重复次数
+            const availCounts = new Map();
+            for (const id of availIds) {
+                availCounts.set(id, (availCounts.get(id) || 0) + 1);
+            }
+            
+            // 处理每个唯一的avail
+            for (const [availId, count] of availCounts) {
+                const avail = skillAvailMap.get(availId);
+                if (!avail) continue;
+                
+                const effect = generateSingleEffect(avail, count);
+                if (effect) {
+                    effects.push(effect);
+                }
+            }
+            
+            if (effects.length === 0) {
+                effects.push('(技能效果请参见描述)');
+            }
+            
+            return effects;
+        }
+
+        // 处理m_HitTypes数组
+        function processHitTypes(hitTypes) {
+            if (!hitTypes || !Array.isArray(hitTypes)) {
+                return [];
+            }
+            
+            let effectiveHitTypes = [];
+            
+            if (hitTypes.length > 0) {
+                if (hitTypes[1] === 0) {
+                    effectiveHitTypes = [hitTypes[0]];
+                } else {
+                    effectiveHitTypes = hitTypes.filter(v => v !== 0);
+                }
+            }
+            
+            return effectiveHitTypes;
+        }
+
+        // 获取命中率信息
+        function getHitRateInfo(hitTypeId) {
+            if (!hitTypeId || hitTypeId === 0 || !skillHitRateMap.has(hitTypeId)) {
+                return null;
+            }
+            
+            const hitRateData = skillHitRateMap.get(hitTypeId);
+            if (!hitRateData) {
+                return null;
+            }
+            
+            // 提取命中率数组中的非零值
+            const hitRates = (hitRateData.m_HitRates || []).filter(rate => rate !== 0);
+            
+            // 计算100%命中的个数
+            const guaranteedHits = hitRates.filter(rate => rate === 100).length;
+            
+            return {
+                minCount: hitRateData.m_MinCount || 1,
+                totalHits: hitRates.length,
+                guaranteedHits: guaranteedHits,
+                hitRates: hitRates
+            };
+        }
+
+        // 格式化次数显示（考虑命中率信息）
+        function formatCountDisplay(baseCount, hitRateInfo) {
+            if (!hitRateInfo) {
+                return baseCount || 1;
+            }
+            
+            const minTotal = baseCount * hitRateInfo.minCount;
+            const maxTotal = baseCount * hitRateInfo.totalHits;
+            const guaranteedTotal = baseCount * hitRateInfo.guaranteedHits;
+            
+            if (minTotal === maxTotal) {
+                if (guaranteedTotal === minTotal || hitRateInfo.minCount === 1) {
+                    return `${minTotal}`;
+                } else {
+                    return `${minTotal}（必中${guaranteedTotal}）`;
+                }
+            } else {
+                if (guaranteedTotal > 0) {
+                    return `${minTotal}-${maxTotal}（必中${guaranteedTotal}）`;
+                } else {
+                    return `${minTotal}-${maxTotal}`;
+                }
+            }
+        }
+
+        // 简化伤害公式显示
+        function simplifyDamageFormula(calcType, valueDisplay, ratioDisplay) {
+            if (calcType !== 1 && calcType !== 2) {
+                return generateDamageFormula(calcType, valueDisplay, ratioDisplay);
+            }
+            
+            let simplified = '';
+            
+            // 计算1.5*value/100，注意valueDisplay可能是负数，我们需要取绝对值
+            const valueExpr = simplifyValueExpression(valueDisplay, 1.5/100); // 除以100在这里处理
+            
+            // 计算ratio/100
+            const ratioExpr = simplifyValueExpression(ratioDisplay, 0.01);
+            
+            if (calcType === 1) {
+                simplified = `(物攻×${valueExpr}-物防)`;
+            } else if (calcType === 2) {
+                // 根据value的正负判断
+                let isDamage = false;
+                if (typeof valueDisplay === 'number') {
+                    isDamage = valueDisplay < 0;
+                } else if (typeof valueDisplay === 'string') {
+                    // 尝试解析第一个数值
+                    const match = valueDisplay.match(/-?\d+(\.\d+)?/);
+                    if (match) {
+                        isDamage = parseFloat(match[0]) < 0;
+                    }
+                }
+                
+                if (isDamage) {
+                    simplified = `(魔攻×${valueExpr}-魔防)`;
+                } else {
+                    simplified = `(魔防×${valueExpr})`;
+                }
+            }
+            
+            // 如果ratio不是1，则乘以ratio
+            if (ratioExpr !== '1' && ratioExpr !== '1倍率') {
+                simplified += `×${ratioExpr}`;
+            }
+            
+            // 添加其他倍率
+            simplified += '×其他倍率';
+            
+            return simplified;
+        }
+
+        // 简化数值表达式 - 修复：正确处理负数和百分比
+        function simplifyValueExpression(displayValue, multiplier) {
+            if (typeof displayValue === 'number') {
+                // 取绝对值，因为伤害公式中value是绝对值
+                const absValue = Math.abs(displayValue);
+                const result = multiplier * absValue;
+                // 保留最多3位小数，去掉末尾的0
+                return result.toFixed(3).replace(/\.?0+$/, '');
+            } else if (typeof displayValue === 'string') {
+                // 处理[+diff/BP]格式
+                if (displayValue.includes('[+')) {
+                    const parts = displayValue.split('[+');
+                    const base = Math.abs(parseFloat(parts[0])); // 取绝对值
+                    const diffPart = parts[1].replace('/BP]', '');
+                    const diff = parseFloat(diffPart);
+                    
+                    const baseResult = multiplier * base;
+                    const diffResult = multiplier * Math.abs(diff); // 取绝对值
+                    
+                    return `${baseResult.toFixed(3).replace(/\.?0+$/, '')}[+${diffResult.toFixed(3).replace(/\.?0+$/, '')}/BP]`;
+                }
+                // 处理数组格式 [a/b/c]
+                else if (displayValue.startsWith('[') && displayValue.endsWith(']')) {
+                    const values = displayValue.slice(1, -1).split('/').map(v => Math.abs(parseFloat(v))); // 取绝对值
+                    const results = values.map(v => {
+                        const result = multiplier * v;
+                        return result.toFixed(3).replace(/\.?0+$/, '');
+                    });
+                    return `[${results.join('/')}]`;
+                }
+                // 直接数值
+                else {
+                    const value = parseFloat(displayValue);
+                    if (!isNaN(value)) {
+                        const result = multiplier * Math.abs(value); // 取绝对值
+                        return result.toFixed(3).replace(/\.?0+$/, '');
+                    }
+                }
+            }
+            
+            return displayValue;
+        }
+
+        // 获取伤害公式原始数据（用于计算器）- 修复：正确判断BP等级
+        function getDamageFormulaData(calcType, valueDisplay, ratioDisplay) {
+            const data = {
+                calcType: calcType,
+                values: [],
+                ratios: [],
+                valueDisplay: valueDisplay,
+                ratioDisplay: ratioDisplay,
+                bpLevels: 0,
+                valueHasBP: false,
+                ratioHasBP: false
+            };
+            
+            // 判断value是否与BP相关
+            data.valueHasBP = typeof valueDisplay === 'string' && 
+                (valueDisplay.includes('[+') || 
+                 (valueDisplay.startsWith('[') && valueDisplay.endsWith(']') && valueDisplay.split('/').length > 1));
+            
+            // 判断ratio是否与BP相关
+            data.ratioHasBP = typeof ratioDisplay === 'string' && 
+                (ratioDisplay.includes('[+') || 
+                 (ratioDisplay.startsWith('[') && ratioDisplay.endsWith(']') && ratioDisplay.split('/').length > 1));
+            
+            // 提取values数组
+            if (typeof valueDisplay === 'number') {
+                data.values = [Math.abs(valueDisplay)]; // 取绝对值
+            } else if (typeof valueDisplay === 'string') {
+                // 处理[+diff/BP]格式
+                if (valueDisplay.includes('[+')) {
+                    const parts = valueDisplay.split('[+');
+                    const base = Math.abs(parseFloat(parts[0])); // 取绝对值
+                    const diffPart = parts[1].replace('/BP]', '');
+                    const diff = Math.abs(parseFloat(diffPart)); // 取绝对值
+                    
+                    data.values = [base, base + diff, base + 2*diff, base + 3*diff];
+                }
+                // 处理数组格式 [a/b/c]
+                else if (valueDisplay.startsWith('[') && valueDisplay.endsWith(']')) {
+                    const values = valueDisplay.slice(1, -1).split('/').map(v => Math.abs(parseFloat(v))); // 取绝对值
+                    data.values = values;
+                }
+                // 直接数值
+                else {
+                    const value = parseFloat(valueDisplay);
+                    if (!isNaN(value)) {
+                        data.values = [Math.abs(value)]; // 取绝对值
+                    }
+                }
+            }
+            
+            // 提取ratios数组
+            if (typeof ratioDisplay === 'number') {
+                data.ratios = [ratioDisplay];
+            } else if (typeof ratioDisplay === 'string') {
+                // 处理[+diff/BP]格式
+                if (ratioDisplay.includes('[+')) {
+                    const parts = ratioDisplay.split('[+');
+                    const base = parseFloat(parts[0]);
+                    const diffPart = parts[1].replace('/BP]', '');
+                    const diff = parseFloat(diffPart);
+                    
+                    data.ratios = [base, base + diff, base + 2*diff, base + 3*diff];
+                }
+                // 处理数组格式 [a/b/c]
+                else if (ratioDisplay.startsWith('[') && ratioDisplay.endsWith(']')) {
+                    const values = ratioDisplay.slice(1, -1).split('/').map(v => parseFloat(v));
+                    data.ratios = values;
+                }
+                // 直接数值
+                else {
+                    const value = parseFloat(ratioDisplay);
+                    if (!isNaN(value)) {
+                        data.ratios = [value];
+                    }
+                }
+            }
+            
+            // 确定BP等级数：取values和ratios中较大的数组长度减1
+            const maxValues = data.values.length;
+            const maxRatios = data.ratios.length;
+            data.bpLevels = Math.max(maxValues, maxRatios) - 1;
+            
+            return data;
+        }
+
+        // 显示伤害计算器 - 修复：正确显示BP选择，优化定位
+        function showDamageCalculator(calcType, valueDisplay, ratioDisplay, element) {
+            currentLinkElement = element;
+            currentCalculatorData = getDamageFormulaData(calcType, valueDisplay, ratioDisplay);
+            
+            
+            // 生成计算器表单
+            let formHTML = '';
+            
+            
+            // 判断是伤害还是回复
+            let isDamage = false;
+            if (calcType === 1) {
+                isDamage = true;
+            } else if (calcType === 2) {
+                // 判断是伤害还是回复
+                if (typeof valueDisplay === 'number') {
+                    isDamage = valueDisplay < 0;
+                } else if (typeof valueDisplay === 'string') {
+                    // 尝试解析第一个数值
+                    const match = valueDisplay.match(/-?\d+(\.\d+)?/);
+                    if (match) {
+                        isDamage = parseFloat(match[0]) < 0;
+                    }
+                }
+            }
+            
+            // 创建三列布局的表单
+            formHTML += `<div class="form-group row">`;
+            
+            if (calcType === 1) {
+                formHTML += `
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label class="form-label">物攻</label>
+                        <input type="number" id="atkP" class="form-input small" min="1" max="999" value="${lastValueAtkP}">
+                    </div>
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label class="form-label">物防</label>
+                        <input type="number" id="defP" class="form-input small" min="1" max="999" value="${lastValueDefP}">
+                    </div>
+                `;
+            } else if (calcType === 2) {
+                if (isDamage) {
+                    formHTML += `
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                            <label class="form-label">魔攻</label>
+                            <input type="number" id="atkM" class="form-input small" min="1" max="999" value="${lastValueAtkM}">
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                            <label class="form-label">魔防</label>
+                            <input type="number" id="defM" class="form-input small" min="1" max="999" value="${lastValueDefM}">
+                        </div>
+                    `;
+                } else {
+                    formHTML += `
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                            <label class="form-label">魔防</label>
+                            <input type="number" id="defM" class="form-input small" min="1" max="999" value="${lastValueDefM}">
+                        </div>
+                        <div style="flex: 1; display: flex; flex-direction: column; gap: 5px; visibility: hidden;">
+                            <label class="form-label">占位</label>
+                            <div class="form-input small"></div>
+                        </div>
+                    `;
+                }
+            }
+            
+            // 添加BP选择（如果value或ratio与BP相关）
+            if (currentCalculatorData.valueHasBP || currentCalculatorData.ratioHasBP) {
+                formHTML += `
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label class="form-label">消费BP</label>
+                        <select id="bpLevel" class="form-input small">
+                            ${Array.from({length: currentCalculatorData.bpLevels + 1}, (_, i) => 
+                                `<option value="${i}"${i === lastValueBP ? " selected" : ""}>${i}</option>`
+                            ).join('')}
+                        </select>
+                    </div>
+                `;
+            } else {
+                formHTML += `
+                    <div style="flex: 1; display: flex; flex-direction: column; gap: 5px;">
+                        <label class="form-label">BP等级</label>
+                        <input type="text" id="bpLevel" class="form-input small" value="0" readonly style="background-color: #0f3460;">
+                    </div>
+                `;
+            }
+            
+            formHTML += `</div>`;
+            
+            // 添加其他倍率
+            formHTML += `
+                <div class="form-group">
+                    <label class="form-label">其他倍率 (0.01-999.99)</label>
+                    <input type="number" id="otherMultiplier" class="form-input" min="0.01" max="999.99" step="0.01" value="${lastValueRatio}">
+                </div>
+                <button type="button" id="calculateDamage" class="calc-btn">计算伤害</button>
+            `;
+            
+            calculatorForm.innerHTML = formHTML;
+            calculatorResult.style.display = 'none';
+            
+            // 显示计算器
+            damageCalculator.style.display = 'block';
+            calculatorVisible = true;
+
+            
+            // 绑定计算事件
+            document.getElementById('calculateDamage').addEventListener('click', calculateDamage);
+            
+            // 绑定输入变化事件
+            calculatorForm.querySelectorAll('input, select').forEach(input => {
+                input.addEventListener('input', calculateDamage);
+                input.addEventListener('change', calculateDamage);
+            });
+            
+            // 初始计算
+            calculateDamage();
+
+            // 定位计算器
+            positionCalculator(element);
+
+        }
+
+        // 定位计算器 - 修复：始终跟随链接，不进行视口边界检查
+        function positionCalculator(element) {
+            if (!element) return;
+            
+            // 获取链接的位置
+            const rect = element.parentElement.getBoundingClientRect();
+            
+            // 将计算器定位在右下角对齐
+            const top = rect.bottom - damageCalculator.clientHeight;
+            const left = rect.right - damageCalculator.clientWidth;
+            
+            // 应用位置（不检查是否在视口内）
+            damageCalculator.style.top = `${top}px`;
+            damageCalculator.style.left = `${left}px`;
+        }
+
+        // 更新计算器位置（用于滚动时）
+        function updateCalculatorPosition() {
+            if (!calculatorVisible || !currentLinkElement) return;
+            
+            // 检查链接元素是否还在DOM中
+            if (!document.body.contains(currentLinkElement)) {
+                // 如果链接已经不存在，关闭计算器
+                damageCalculator.style.display = 'none';
+                calculatorVisible = false;
+                return;
+            }
+            
+            // 重新定位计算器
+            positionCalculator(currentLinkElement);
+        }
+
+        // 计算伤害
+        function calculateDamage() {
+            try {
+                const bpLevel = parseInt(document.getElementById('bpLevel').value) || 0;
+                
+                if (document.getElementById('bpLevel').tagName === 'SELECT') {
+                    lastValueBP = bpLevel;
+                }
+                
+                // 获取values和ratios对应BP等级的值
+                const valueIndex = Math.min(bpLevel, currentCalculatorData.values.length - 1);
+                const ratioIndex = Math.min(bpLevel, currentCalculatorData.ratios.length - 1);
+                
+                const value = currentCalculatorData.values[valueIndex];
+                const ratio = currentCalculatorData.ratios[ratioIndex] / 100; // ratio是百分比
+                const otherMultiplier = parseFloat(document.getElementById('otherMultiplier').value) || 1;
+                
+                let damage = 0;
+                lastValueRatio = otherMultiplier;
+                
+                if (currentCalculatorData.calcType === 1) {
+                    const atkP = parseFloat(document.getElementById('atkP').value) || 0;
+                    const defP = parseFloat(document.getElementById('defP').value) || 0;
+                    lastValueAtkP = atkP;
+                    lastValueDefP = defP;
+                    damage = (atkP * 1.5 * value / 100 - defP) * ratio * otherMultiplier;
+                } else if (currentCalculatorData.calcType === 2) {
+                    // 判断是伤害还是回复
+                    const isDamage = typeof currentCalculatorData.valueDisplay === 'string' ? 
+                        currentCalculatorData.valueDisplay.includes('-') : 
+                        currentCalculatorData.valueDisplay < 0;
+                    
+                    if (isDamage) {
+                        const atkM = parseFloat(document.getElementById('atkM').value) || 0;
+                        const defM = parseFloat(document.getElementById('defM').value) || 0;
+                        lastValueAtkM = atkM;
+                        lastValueDefM = defM;
+                        damage = (atkM * 1.5 * value / 100 - defM) * ratio * otherMultiplier;
+                    } else {
+                        const defM = parseFloat(document.getElementById('defM').value) || 0;
+                        lastValueDefM = defM;
+                        damage = (defM * 1.5 * value / 100) * ratio * otherMultiplier;
+                    }
+                }
+                
+                // 确保伤害非负
+                damage = Math.max(0, damage);
+                
+                // 计算浮动范围（98%~102%）
+                const minDamage = Math.floor(damage * 0.98);
+                const maxDamage = Math.ceil(damage * 1.02);
+                
+                // 显示结果
+                damageResult.textContent = `${minDamage}~${maxDamage}`;
+                calculatorResult.style.display = 'block';
+                
+            } catch (error) {
+                console.error('计算伤害时出错:', error);
+                damageResult.textContent = '计算错误';
+                calculatorResult.style.display = 'block';
+            }
+        }
+
+        // 生成单个效果描述 - 修复：只在calcType=1或2时生成可点击链接
+        function generateSingleEffect(avail, count) {
+            // 处理目标类型
+            const target = targetTypeMapping[avail.m_TargetType] || `未知目标(${avail.m_TargetType})`;
+            
+            // 处理m_Values数组
+            const values = (avail.m_Values || []).filter(v => v !== undefined);
+            let effectiveValues = [];
+            
+            if (values.length > 0) {
+                if (values[1] === 0) {
+                    effectiveValues = [values[0]];
+                } else {
+                    effectiveValues = values.filter(v => v !== 0);
+                }
+            }
+            
+            // 处理m_AddAilment
+            const addAilmentIds = (avail.m_AddAilment || []).filter(id => id > 0);
+            const addAilmentText = getAilmentText(addAilmentIds);
+            const addAilmentExtras = (avail.m_ValueAilment || []).filter(id => id > 0);
+            let addAilmentExtraInfo = "";
+            if (addAilmentExtras.length > 0) {
+                switch (addAilmentExtras[0]) {
+                    case 1:
+                        addAilmentExtraInfo = "（+1层）";
+                        break;
+                    case 2:
+                        addAilmentExtraInfo = "（+2层）";
+                        break;
+                    case 30:
+                        addAilmentExtraInfo = "（-2层）";
+                        break;
+                    case 31:
+                        addAilmentExtraInfo = "（-1层）";
+                        break;
+                }
+            }
+            if (avail.m_AddAilmentPick > 0) {
+                addAilmentExtraInfo += `（随机${avail.m_AddAilmentPick}项）`;
+            }
+            
+            // 处理m_SubAilment
+            const subAilmentIds = (avail.m_SubAilment || []).filter(id => id > 0);
+            const subAilmentText = getAilmentText(subAilmentIds);
+            const subAilmentExtraInfo = avail.m_SubAilmentPick > 0 ? `（随机${avail.m_SubAilmentPick}项）` : "";
+            
+            // 处理m_Turns
+            const turns = (avail.m_Turns || []).filter(t => t !== undefined && t !== 0);
+            let effectiveTurns = [];
+            
+            if (turns.length > 0) {
+                if (turns[1] === 0) {
+                    effectiveTurns = [turns[0]];
+                } else {
+                    effectiveTurns = turns.filter(t => t !== 0);
+                }
+            }
+            
+            // 处理m_SkillRatios
+            const ratios = avail.m_SkillRatios || [];
+            let effectiveRatios = [];
+            
+            if (ratios.length > 0) {
+                if (effectiveValues.length === 1) {
+                    effectiveRatios = [ratios[0]];
+                } else {
+                    effectiveRatios = ratios.slice(0, effectiveValues.length);
+                }
+            }
+            
+            // 处理m_Counts
+            const counts = avail.m_Counts || [];
+            let effectiveCounts = [];
+            
+            if (counts.length > 0) {
+                if (counts[1] === 0) {
+                    effectiveCounts = [counts[0]];
+                } else {
+                    effectiveCounts = counts.filter(c => c !== 0);
+                }
+            }
+            
+            // 处理m_HitTypes
+            const hitTypes = processHitTypes(avail.m_HitTypes);
+            let hitRateInfo = null;
+            let hitRatePrefix = '';
+            
+            if (hitTypes.length > 0) {
+                // 只取第一个有效的命中类型
+                const hitTypeId = hitTypes[0];
+                hitRateInfo = getHitRateInfo(hitTypeId);
+                
+                if (hitRateInfo) {
+                    // 检查是否需要添加命中率前缀
+                    const hitRates = hitRateInfo.hitRates;
+                    if (hitRates.length === 1 && hitRates[0] !== 100) {
+                        hitRatePrefix = `以【${hitRates[0]}%】命中率，`;
+                    }
+                }
+            }
+            
+            // 生成值显示字符串
+            const valueDisplay = formatValueDisplay(effectiveValues);
+            const ratioDisplay = formatValueDisplay(effectiveRatios);
+            const turnDisplay = formatValueDisplay(effectiveTurns);
+            const countDisplay = formatValueDisplay(effectiveCounts);
+            
+            // 格式化次数显示（考虑命中率信息）
+            const baseCount = countDisplay || count || 1;
+            const formattedCount = hitRateInfo ? formatCountDisplay(baseCount, hitRateInfo) : baseCount;
+            
+            // 判断效果类型
+            const isDamage = effectiveValues.some(v => v !== 0);
+            const hasAddAilment = addAilmentText.length > 0;
+            const hasSubAilment = subAilmentText.length > 0;
+            const hasTurns = effectiveTurns.length > 0;
+            
+            // 生成效果描述
+            if (!isDamage && hasAddAilment && hasTurns) {
+                // 纯添加状态效果
+                return `${hitRatePrefix}对【${target}】施加【${formattedCount}】次【${turnDisplay}】回合的【${addAilmentText}${addAilmentExtraInfo}】状态。`;
+                
+            } else if (!isDamage && hasSubAilment) {
+                // 纯解除状态效果
+                return `对【${target}】解除【${subAilmentText}${subAilmentExtraInfo}】状态。`;
+                
+            } else if (isDamage && !hasAddAilment && !hasSubAilment) {
+                // 纯伤害/回复效果
+                const damageType = getDamageType(avail.m_CalcType, avail.m_ModifyType, avail.m_ModifyStatus, effectiveValues[0], avail.m_OverrideWeapon, avail.m_OverrideMagic);
+                const formula = simplifyDamageFormula(avail.m_CalcType, valueDisplay, ratioDisplay);
+                
+                // 根据calcType决定是否生成可点击链接
+                let formulaDisplay = '';
+                if (avail.m_CalcType === 1 || avail.m_CalcType === 2) {
+                    formulaDisplay = `<a class="formula-link" data-calc-type="${avail.m_CalcType}" data-value="${valueDisplay}" data-ratio="${ratioDisplay}">${formula}</a>`;
+                } else {
+                    formulaDisplay = `<span>${formula}</span>`;
+                }
+                
+                return `${hitRatePrefix}对【${target}】造成【${formattedCount}】次${formulaDisplay}的【${damageType}】`;
+                
+            } else if (isDamage && hasAddAilment && hasTurns && !hasSubAilment) {
+                // 伤害+添加状态组合
+                const damageType = getDamageType(avail.m_CalcType, avail.m_ModifyType, avail.m_ModifyStatus, effectiveValues[0], avail.m_OverrideWeapon, avail.m_OverrideMagic);
+                const formula = simplifyDamageFormula(avail.m_CalcType, valueDisplay, ratioDisplay);
+                
+                // 根据calcType决定是否生成可点击链接
+                let formulaDisplay = '';
+                if (avail.m_CalcType === 1 || avail.m_CalcType === 2) {
+                    formulaDisplay = `<a class="formula-link" data-calc-type="${avail.m_CalcType}" data-value="${valueDisplay}" data-ratio="${ratioDisplay}">${formula}</a>`;
+                } else {
+                    formulaDisplay = `<span>${formula}</span>`;
+                }
+                
+                return `${hitRatePrefix}对【${target}】造成【${formattedCount}】次${formulaDisplay}的【${damageType}】，并施加【${turnDisplay}】回合的【${addAilmentText}${addAilmentExtraInfo}】状态。`;
+                
+            } else if (isDamage && hasSubAilment) {
+                // 伤害+解除状态组合
+                const damageType = getDamageType(avail.m_CalcType, avail.m_ModifyType, avail.m_ModifyStatus, effectiveValues[0], avail.m_OverrideWeapon, avail.m_OverrideMagic);
+                const formula = simplifyDamageFormula(avail.m_CalcType, valueDisplay, ratioDisplay);
+                
+                // 根据calcType决定是否生成可点击链接
+                let formulaDisplay = '';
+                if (avail.m_CalcType === 1 || avail.m_CalcType === 2) {
+                    formulaDisplay = `<a class="formula-link" data-calc-type="${avail.m_CalcType}" data-value="${valueDisplay}" data-ratio="${ratioDisplay}">${formula}</a>`;
+                } else {
+                    formulaDisplay = `<span>${formula}</span>`;
+                }
+                
+                let result = `${hitRatePrefix}对【${target}】造成【${formattedCount}】次${formulaDisplay}的【${damageType}】`;
+                
+                if (hasAddAilment && hasTurns) {
+                    result += `，施加【${turnDisplay}】回合的【${addAilmentText}${addAilmentExtraInfo}】状态，并解除【${subAilmentText}${subAilmentExtraInfo}】状态。`;
+                } else {
+                    result += `，并解除【${subAilmentText}】${subAilmentExtraInfo}状态。`;
+                }
+                
+                return result;
+                
+            } else {
+                return '(技能效果请参见描述)';
+            }
+        }
+
+        // 格式化值显示
+        function formatValueDisplay(values) {
+            if (!values || values.length === 0) return '';
+            if (values.length === 1) return values[0];
+            
+            // 检查是否全部相同
+            const allSame = values.every(v => v === values[0]);
+            if (allSame) return values[0];
+            
+            // 检查是否为等差数列
+            const diff = values[1] - values[0];
+            const isArithmetic = values.slice(1).every((v, i) => v - values[i] === diff);
+            
+            if (isArithmetic && diff !== 0) {
+                return `${values[0]}[+${diff}/BP]`;
+            } else {
+                return `[${values.join('/')}]`;
+            }
+        }
+
+        // 获取伤害类型
+        function getDamageType(calcType, modifyType, modifyStatus, value, overrideWeapon, overrideMagic) {
+            if (calcType === 1 && modifyType === 1 && modifyStatus === 5) {
+                return value < 0 ? `物理${overrideWeapon > 0 ? "（" + weaponIconMapping[overrideWeapon] + "）" : ""}伤害` : 'HP回复';
+            } else if (calcType === 2 && modifyType === 1 && modifyStatus === 5) {
+                return value < 0 ? `魔法${overrideMagic > 0 ? "（" + magicIconMapping[overrideMagic] + "）" : ""}伤害` : 'HP回复';
+            } else if (calcType === 3 && modifyType === 1 && modifyStatus === 5) {
+                return value < 0 ? `比例伤害` : 'HP回复';
+            } else if (calcType === 4 && modifyType === 1 && modifyStatus === 5) {
+                return value < 0 ? `道具伤害` : 'HP回复';
+            } else if (modifyType === 2) {
+                if (modifyStatus === 5) return 'HP回复';
+                if (modifyStatus === 6) return 'SP回复';
+            } else if (modifyType === 26 && modifyStatus === 6) {
+                return 'SP超量回复';
+            } else if (modifyType === 1 && modifyStatus === 6) {
+                return value < 0 ? 'SP伤害' : 'SP回复';
+            } else if (modifyStatus === 7) {
+                return value > 0 ? 'BP增加' : 'BP减少';
+            } else if (modifyType === 25) {
+                return 'JP增加';
+            } else if ([1, 2, 9, 10, 11, 12, 13, 14, 15, 16, 18].includes(modifyStatus)) {
+                const statusNames = {
+                    1: '最大HP', 2: '最大SP', 9: '物攻', 10: '物防',
+                    11: '魔攻', 12: '魔防', 13: '速度', 14: '暴击',
+                    15: '命中', 16: '回避', 18: '必杀槽'
+                };
+                return statusNames[modifyStatus] + (value > 0 ? '增加' : '减少');
+            }
+            
+            return '未知属性';
+        }
+
+        // 生成伤害公式
+        function generateDamageFormula(calcType, valueDisplay, ratioDisplay) {
+            switch (calcType) {
+                case 1:
+                    return `(物攻*1.5*${Math.abs(valueDisplay)}/100-物防)*(${ratioDisplay}/100)*其他倍率`;
+                case 2:
+                    const absValue = Math.abs(valueDisplay);
+                    if (valueDisplay < 0) {
+                        return `(魔攻*1.5*${absValue}/100-魔防)*(${ratioDisplay}/100)*其他倍率`;
+                    } else {
+                        return `(魔防*1.5*${absValue}/100)*(${ratioDisplay}/100)*其他倍率`;
+                    }
+                case 3:
+                    if (ratioDisplay === 100) {
+                        return `伤害值*${valueDisplay}%`;
+                    } else {
+                        return `自余值*${valueDisplay}%*${ratioDisplay}%`;
+                    }
+                case 4:
+                    const strDisplay = typeof valueDisplay === 'number' ? Math.abs(valueDisplay) : valueDisplay;
+                    return `${strDisplay}点`;
+                default:
+                    return `未知计算公式(类型${calcType})`;
+            }
+        }
+
+        // 显示错误信息
+        function showError(message) {
+            resultsDiv.innerHTML = `<div class="error-message">${message}</div>`;
+        }
+
+        // 显示搜索结果
+        function displayResults(results) {
+            if (results.length === 0) {
+                resultsDiv.innerHTML = `
+                    <div class="empty-state">
+                        <h3>未找到匹配的技能</h3>
+                        <p>请尝试其他关键词进行搜索</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = `<div class="result-count">找到 ${results.length} 个匹配的技能</div>`;
+            
+            for (const result of results) {
+                const skill = result.skill;
+                const skillInfo = extractSkillInfo(skill);
+                const skillEffects = generateSkillEffects(skill);
+                
+                // 格式化匹配度显示
+                const matchPercent = Math.round(result.matchScore * 100);
+                let matchClass = 'high';
+                if (matchPercent < 80) matchClass = 'medium';
+                if (matchPercent < 75) matchClass = '';
+                
+                html += `
+                    <div class="skill-card">
+                        <div class="skill-header">
+                            <div>
+                                <div class="skill-name">
+                                    ${skillInfo.displayName || skillInfo.name || '未知技能'}
+                                    <span class="match-rate ${matchClass}">${matchPercent}%匹配</span>
+                                </div>
+                            </div>
+                            <div class="skill-id">ID: ${skill.m_id}</div>
+                        </div>
+                        
+                        <div class="skill-description">
+                            ${skillInfo.description || '无描述'}
+                        </div>
+                        
+                        <div class="skill-info">
+                            <div class="info-item">
+                                <div class="info-label">属性</div>
+                                <div class="info-value">${skillInfo.attributes}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">技能类型</div>
+                                <div class="info-value">${skillInfo.category}</div>
+                            </div>
+                            <div class="info-item">
+                                <div class="info-label">SP消耗</div>
+                                <div class="info-value">${skillInfo.spCost}</div>
+                            </div>
+                            ${skillInfo.coolDown ? `
+                            <div class="info-item">
+                                <div class="info-label">冷却</div>
+                                <div class="info-value">${skillInfo.coolDown}回合</div>
+                            </div>` : ''}
+                            ${skillInfo.critRate ? `
+                            <div class="info-item">
+                                <div class="info-label">暴击补正</div>
+                                <div class="info-value">${skillInfo.critRate}%</div>
+                            </div>` : ''}
+                            ${skillInfo.shieldDamage ? `
+                            <div class="info-item">
+                                <div class="info-label">破盾层数</div>
+                                <div class="info-value">${skillInfo.shieldDamage}</div>
+                            </div>` : ''}
+                            ${skillInfo.ownerInfo && skillInfo.ownerInfo.owner && skillInfo.ownerInfo.canEssential !== null ? `
+                            <div class="info-item">
+                                <div class="info-label">精粹化</div>
+                                <div class="info-value">${skillInfo.ownerInfo.canEssential ? '可精粹化' : '不可精粹化'}</div>
+                            </div>` : ''}
+                        </div>
+                        
+                        <div class="effect-details">
+                            <div class="effect-header">技能效果</div>
+                            ${skillEffects.map(effect => `
+                                <div class="effect-item">${effect}</div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            resultsDiv.innerHTML = html;
+            
+            // 绑定伤害计算器链接事件
+            document.querySelectorAll('.formula-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const calcType = parseInt(this.getAttribute('data-calc-type'));
+                    const valueDisplay = this.getAttribute('data-value');
+                    const ratioDisplay = this.getAttribute('data-ratio');
+                    
+                    // 尝试解析数值
+                    let valueNum, ratioNum;
+                    
+                    // 解析value
+                    if (valueDisplay.includes('[') && valueDisplay.includes(']')) {
+                        valueNum = valueDisplay; // 保持字符串格式
+                    } else {
+                        valueNum = parseFloat(valueDisplay);
+                        if (isNaN(valueNum)) valueNum = valueDisplay;
+                    }
+                    
+                    // 解析ratio
+                    if (ratioDisplay.includes('[') && ratioDisplay.includes(']')) {
+                        ratioNum = ratioDisplay; // 保持字符串格式
+                    } else {
+                        ratioNum = parseFloat(ratioDisplay);
+                        if (isNaN(ratioNum)) ratioNum = ratioDisplay;
+                    }
+                    
+                    showDamageCalculator(calcType, valueNum, ratioNum, this);
+                });
+            });
+        }
+
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', function() {
+            // 初始化状态指示器
+            initStatusIndicators();
+            
+            // 加载数据
+            loadAllData();
+            
+            // 监听搜索按钮点击
+            searchBtn.addEventListener('click', searchSkills);
+            
+            // 支持按Enter键进行查询
+            searchInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter' && !searchBtn.disabled) {
+                    searchSkills();
+                }
+            });
+            
+            // 关闭计算器
+            closeCalculator.addEventListener('click', function() {
+                damageCalculator.style.display = 'none';
+                calculatorVisible = false;
+                currentLinkElement = null;
+            });
+            
+            // 监听滚动事件，更新计算器位置
+            window.addEventListener('scroll', function() {
+                updateCalculatorPosition();
+            });
+            
+            // 监听窗口大小变化，更新计算器位置
+            window.addEventListener('resize', function() {
+                updateCalculatorPosition();
+            });
+        });
+    </script>
+</body>
+</html>

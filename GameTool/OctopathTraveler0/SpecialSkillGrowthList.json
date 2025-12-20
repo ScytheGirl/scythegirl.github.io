@@ -1,0 +1,3493 @@
+[
+  {
+    "Type": "BinaryAsset",
+    "Name": "SpecialSkillGrowthList",
+    "Class": "UScriptClass'BinaryAsset'",
+    "Flags": "RF_Public | RF_Standalone | RF_Transactional | RF_WasLoaded | RF_LoadCompleted",
+    "Properties": {
+      "Data": {
+        "m_DataList": [
+          {
+            "m_id": 0,
+            "m_SpecialSkillID": 0,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3753,
+            "m_SpecialSkillID": 10101,
+            "m_Level": 1,
+            "m_SkillID": 901158,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3754,
+            "m_SpecialSkillID": 10101,
+            "m_Level": 2,
+            "m_SkillID": 904221,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3755,
+            "m_SpecialSkillID": 10101,
+            "m_Level": 3,
+            "m_SkillID": 904225,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3756,
+            "m_SpecialSkillID": 10201,
+            "m_Level": 1,
+            "m_SkillID": 900674,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3757,
+            "m_SpecialSkillID": 10201,
+            "m_Level": 2,
+            "m_SkillID": 900675,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3758,
+            "m_SpecialSkillID": 10201,
+            "m_Level": 3,
+            "m_SkillID": 900676,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3759,
+            "m_SpecialSkillID": 10302,
+            "m_Level": 1,
+            "m_SkillID": 901159,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3760,
+            "m_SpecialSkillID": 10302,
+            "m_Level": 2,
+            "m_SkillID": 904229,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3761,
+            "m_SpecialSkillID": 10302,
+            "m_Level": 3,
+            "m_SkillID": 904230,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3762,
+            "m_SpecialSkillID": 10402,
+            "m_Level": 1,
+            "m_SkillID": 900677,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3763,
+            "m_SpecialSkillID": 10402,
+            "m_Level": 2,
+            "m_SkillID": 900678,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3764,
+            "m_SpecialSkillID": 10402,
+            "m_Level": 3,
+            "m_SkillID": 900679,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3765,
+            "m_SpecialSkillID": 10503,
+            "m_Level": 1,
+            "m_SkillID": 900680,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3766,
+            "m_SpecialSkillID": 10503,
+            "m_Level": 2,
+            "m_SkillID": 900681,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3767,
+            "m_SpecialSkillID": 10503,
+            "m_Level": 3,
+            "m_SkillID": 900682,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3768,
+            "m_SpecialSkillID": 10603,
+            "m_Level": 1,
+            "m_SkillID": 901160,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3769,
+            "m_SpecialSkillID": 10603,
+            "m_Level": 2,
+            "m_SkillID": 904231,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3770,
+            "m_SpecialSkillID": 10603,
+            "m_Level": 3,
+            "m_SkillID": 904232,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3771,
+            "m_SpecialSkillID": 10704,
+            "m_Level": 1,
+            "m_SkillID": 900683,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3772,
+            "m_SpecialSkillID": 10704,
+            "m_Level": 2,
+            "m_SkillID": 900684,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3773,
+            "m_SpecialSkillID": 10704,
+            "m_Level": 3,
+            "m_SkillID": 900685,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3774,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 1,
+            "m_SkillID": 901161,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3882,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 1,
+            "m_SkillID": 902821,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3883,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 1,
+            "m_SkillID": 902822,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3884,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 1,
+            "m_SkillID": 902823,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3885,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 1,
+            "m_SkillID": 902824,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3775,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 2,
+            "m_SkillID": 904233,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3886,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 2,
+            "m_SkillID": 904234,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3887,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 2,
+            "m_SkillID": 904235,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3888,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 2,
+            "m_SkillID": 904236,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3889,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 2,
+            "m_SkillID": 904237,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3776,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 3,
+            "m_SkillID": 904238,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3890,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 3,
+            "m_SkillID": 904239,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3891,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 3,
+            "m_SkillID": 904240,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3892,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 3,
+            "m_SkillID": 904241,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3893,
+            "m_SpecialSkillID": 10804,
+            "m_Level": 3,
+            "m_SkillID": 904242,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3777,
+            "m_SpecialSkillID": 10905,
+            "m_Level": 1,
+            "m_SkillID": 901162,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3778,
+            "m_SpecialSkillID": 10905,
+            "m_Level": 2,
+            "m_SkillID": 904267,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3779,
+            "m_SpecialSkillID": 10905,
+            "m_Level": 3,
+            "m_SkillID": 904268,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3780,
+            "m_SpecialSkillID": 11005,
+            "m_Level": 1,
+            "m_SkillID": 901104,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3781,
+            "m_SpecialSkillID": 11005,
+            "m_Level": 2,
+            "m_SkillID": 901105,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3782,
+            "m_SpecialSkillID": 11005,
+            "m_Level": 3,
+            "m_SkillID": 901106,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3783,
+            "m_SpecialSkillID": 11106,
+            "m_Level": 1,
+            "m_SkillID": 901107,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3784,
+            "m_SpecialSkillID": 11106,
+            "m_Level": 2,
+            "m_SkillID": 901108,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3785,
+            "m_SpecialSkillID": 11106,
+            "m_Level": 3,
+            "m_SkillID": 901109,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3786,
+            "m_SpecialSkillID": 11206,
+            "m_Level": 1,
+            "m_SkillID": 901110,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3787,
+            "m_SpecialSkillID": 11206,
+            "m_Level": 2,
+            "m_SkillID": 901113,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3788,
+            "m_SpecialSkillID": 11206,
+            "m_Level": 3,
+            "m_SkillID": 901116,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3789,
+            "m_SpecialSkillID": 11307,
+            "m_Level": 1,
+            "m_SkillID": 901163,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3790,
+            "m_SpecialSkillID": 11307,
+            "m_Level": 2,
+            "m_SkillID": 904243,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3791,
+            "m_SpecialSkillID": 11307,
+            "m_Level": 3,
+            "m_SkillID": 904244,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3792,
+            "m_SpecialSkillID": 11407,
+            "m_Level": 1,
+            "m_SkillID": 901119,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3793,
+            "m_SpecialSkillID": 11407,
+            "m_Level": 2,
+            "m_SkillID": 901120,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3794,
+            "m_SpecialSkillID": 11407,
+            "m_Level": 3,
+            "m_SkillID": 901121,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3795,
+            "m_SpecialSkillID": 11508,
+            "m_Level": 1,
+            "m_SkillID": 901122,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3796,
+            "m_SpecialSkillID": 11508,
+            "m_Level": 2,
+            "m_SkillID": 901124,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3797,
+            "m_SpecialSkillID": 11508,
+            "m_Level": 3,
+            "m_SkillID": 901126,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3798,
+            "m_SpecialSkillID": 11608,
+            "m_Level": 1,
+            "m_SkillID": 901984,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3799,
+            "m_SpecialSkillID": 11608,
+            "m_Level": 2,
+            "m_SkillID": 901985,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3800,
+            "m_SpecialSkillID": 11608,
+            "m_Level": 3,
+            "m_SkillID": 901986,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3801,
+            "m_SpecialSkillID": 20101,
+            "m_Level": 1,
+            "m_SkillID": 901128,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3802,
+            "m_SpecialSkillID": 20101,
+            "m_Level": 2,
+            "m_SkillID": 901129,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3803,
+            "m_SpecialSkillID": 20101,
+            "m_Level": 3,
+            "m_SkillID": 901130,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3804,
+            "m_SpecialSkillID": 20202,
+            "m_Level": 1,
+            "m_SkillID": 901131,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3805,
+            "m_SpecialSkillID": 20202,
+            "m_Level": 2,
+            "m_SkillID": 901132,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3806,
+            "m_SpecialSkillID": 20202,
+            "m_Level": 3,
+            "m_SkillID": 901133,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3807,
+            "m_SpecialSkillID": 20303,
+            "m_Level": 1,
+            "m_SkillID": 900006,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3808,
+            "m_SpecialSkillID": 20303,
+            "m_Level": 2,
+            "m_SkillID": 904217,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3809,
+            "m_SpecialSkillID": 20303,
+            "m_Level": 3,
+            "m_SkillID": 904218,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3810,
+            "m_SpecialSkillID": 20404,
+            "m_Level": 1,
+            "m_SkillID": 901134,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3811,
+            "m_SpecialSkillID": 20404,
+            "m_Level": 2,
+            "m_SkillID": 901135,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3812,
+            "m_SpecialSkillID": 20404,
+            "m_Level": 3,
+            "m_SkillID": 901136,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3813,
+            "m_SpecialSkillID": 20505,
+            "m_Level": 1,
+            "m_SkillID": 901165,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3814,
+            "m_SpecialSkillID": 20505,
+            "m_Level": 2,
+            "m_SkillID": 904245,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3815,
+            "m_SpecialSkillID": 20505,
+            "m_Level": 3,
+            "m_SkillID": 904246,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3816,
+            "m_SpecialSkillID": 20606,
+            "m_Level": 1,
+            "m_SkillID": 900007,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3817,
+            "m_SpecialSkillID": 20606,
+            "m_Level": 2,
+            "m_SkillID": 904219,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3818,
+            "m_SpecialSkillID": 20606,
+            "m_Level": 3,
+            "m_SkillID": 904220,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3819,
+            "m_SpecialSkillID": 20707,
+            "m_Level": 1,
+            "m_SkillID": 901137,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3820,
+            "m_SpecialSkillID": 20707,
+            "m_Level": 2,
+            "m_SkillID": 901138,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3821,
+            "m_SpecialSkillID": 20707,
+            "m_Level": 3,
+            "m_SkillID": 901139,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3822,
+            "m_SpecialSkillID": 20808,
+            "m_Level": 1,
+            "m_SkillID": 901140,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3823,
+            "m_SpecialSkillID": 20808,
+            "m_Level": 2,
+            "m_SkillID": 901141,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3824,
+            "m_SpecialSkillID": 20808,
+            "m_Level": 3,
+            "m_SkillID": 901142,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3825,
+            "m_SpecialSkillID": 30103,
+            "m_Level": 1,
+            "m_SkillID": 901166,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3826,
+            "m_SpecialSkillID": 30103,
+            "m_Level": 2,
+            "m_SkillID": 904247,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3827,
+            "m_SpecialSkillID": 30103,
+            "m_Level": 3,
+            "m_SkillID": 904248,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3828,
+            "m_SpecialSkillID": 30207,
+            "m_Level": 1,
+            "m_SkillID": 901143,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3829,
+            "m_SpecialSkillID": 30207,
+            "m_Level": 2,
+            "m_SkillID": 901144,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3830,
+            "m_SpecialSkillID": 30207,
+            "m_Level": 3,
+            "m_SkillID": 901145,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3831,
+            "m_SpecialSkillID": 30301,
+            "m_Level": 1,
+            "m_SkillID": 901146,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3832,
+            "m_SpecialSkillID": 30301,
+            "m_Level": 2,
+            "m_SkillID": 901147,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3833,
+            "m_SpecialSkillID": 30301,
+            "m_Level": 3,
+            "m_SkillID": 901148,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3834,
+            "m_SpecialSkillID": 30407,
+            "m_Level": 1,
+            "m_SkillID": 901167,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3835,
+            "m_SpecialSkillID": 30407,
+            "m_Level": 2,
+            "m_SkillID": 904249,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3836,
+            "m_SpecialSkillID": 30407,
+            "m_Level": 3,
+            "m_SkillID": 904250,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3837,
+            "m_SpecialSkillID": 30501,
+            "m_Level": 1,
+            "m_SkillID": 901168,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3838,
+            "m_SpecialSkillID": 30501,
+            "m_Level": 2,
+            "m_SkillID": 904251,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3839,
+            "m_SpecialSkillID": 30501,
+            "m_Level": 3,
+            "m_SkillID": 904252,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3840,
+            "m_SpecialSkillID": 30701,
+            "m_Level": 1,
+            "m_SkillID": 901149,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3841,
+            "m_SpecialSkillID": 30701,
+            "m_Level": 2,
+            "m_SkillID": 901150,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3842,
+            "m_SpecialSkillID": 30701,
+            "m_Level": 3,
+            "m_SkillID": 901151,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3843,
+            "m_SpecialSkillID": 30808,
+            "m_Level": 1,
+            "m_SkillID": 901169,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3844,
+            "m_SpecialSkillID": 30808,
+            "m_Level": 2,
+            "m_SkillID": 904253,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3845,
+            "m_SpecialSkillID": 30808,
+            "m_Level": 3,
+            "m_SkillID": 904254,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3846,
+            "m_SpecialSkillID": 40204,
+            "m_Level": 1,
+            "m_SkillID": 901152,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3847,
+            "m_SpecialSkillID": 40204,
+            "m_Level": 2,
+            "m_SkillID": 901153,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3848,
+            "m_SpecialSkillID": 40204,
+            "m_Level": 3,
+            "m_SkillID": 901154,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3849,
+            "m_SpecialSkillID": 50101,
+            "m_Level": 1,
+            "m_SkillID": 901170,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3850,
+            "m_SpecialSkillID": 50101,
+            "m_Level": 2,
+            "m_SkillID": 904255,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3851,
+            "m_SpecialSkillID": 50101,
+            "m_Level": 3,
+            "m_SkillID": 904256,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3852,
+            "m_SpecialSkillID": 50201,
+            "m_Level": 1,
+            "m_SkillID": 901155,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3853,
+            "m_SpecialSkillID": 50201,
+            "m_Level": 2,
+            "m_SkillID": 901156,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3854,
+            "m_SpecialSkillID": 50201,
+            "m_Level": 3,
+            "m_SkillID": 901157,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3855,
+            "m_SpecialSkillID": 60107,
+            "m_Level": 1,
+            "m_SkillID": 901171,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3856,
+            "m_SpecialSkillID": 60107,
+            "m_Level": 2,
+            "m_SkillID": 904257,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3857,
+            "m_SpecialSkillID": 60107,
+            "m_Level": 3,
+            "m_SkillID": 904258,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3858,
+            "m_SpecialSkillID": 901,
+            "m_Level": 1,
+            "m_SkillID": 900408,
+            "m_DisplayPriority": 70
+          },
+          {
+            "m_id": 3859,
+            "m_SpecialSkillID": 901,
+            "m_Level": 2,
+            "m_SkillID": 900409,
+            "m_DisplayPriority": 70
+          },
+          {
+            "m_id": 3860,
+            "m_SpecialSkillID": 901,
+            "m_Level": 3,
+            "m_SkillID": 900410,
+            "m_DisplayPriority": 70
+          },
+          {
+            "m_id": 3861,
+            "m_SpecialSkillID": 902,
+            "m_Level": 1,
+            "m_SkillID": 901172,
+            "m_DisplayPriority": 20
+          },
+          {
+            "m_id": 3862,
+            "m_SpecialSkillID": 902,
+            "m_Level": 2,
+            "m_SkillID": 904259,
+            "m_DisplayPriority": 20
+          },
+          {
+            "m_id": 3863,
+            "m_SpecialSkillID": 902,
+            "m_Level": 3,
+            "m_SkillID": 904260,
+            "m_DisplayPriority": 20
+          },
+          {
+            "m_id": 3864,
+            "m_SpecialSkillID": 903,
+            "m_Level": 1,
+            "m_SkillID": 900411,
+            "m_DisplayPriority": 60
+          },
+          {
+            "m_id": 3865,
+            "m_SpecialSkillID": 903,
+            "m_Level": 2,
+            "m_SkillID": 900412,
+            "m_DisplayPriority": 60
+          },
+          {
+            "m_id": 3866,
+            "m_SpecialSkillID": 903,
+            "m_Level": 3,
+            "m_SkillID": 900413,
+            "m_DisplayPriority": 60
+          },
+          {
+            "m_id": 3867,
+            "m_SpecialSkillID": 904,
+            "m_Level": 1,
+            "m_SkillID": 900730,
+            "m_DisplayPriority": 50
+          },
+          {
+            "m_id": 3868,
+            "m_SpecialSkillID": 904,
+            "m_Level": 2,
+            "m_SkillID": 900731,
+            "m_DisplayPriority": 50
+          },
+          {
+            "m_id": 3869,
+            "m_SpecialSkillID": 904,
+            "m_Level": 3,
+            "m_SkillID": 900732,
+            "m_DisplayPriority": 50
+          },
+          {
+            "m_id": 3897,
+            "m_SpecialSkillID": 905,
+            "m_Level": 1,
+            "m_SkillID": 900414,
+            "m_DisplayPriority": 90
+          },
+          {
+            "m_id": 3898,
+            "m_SpecialSkillID": 905,
+            "m_Level": 2,
+            "m_SkillID": 900415,
+            "m_DisplayPriority": 90
+          },
+          {
+            "m_id": 3899,
+            "m_SpecialSkillID": 905,
+            "m_Level": 3,
+            "m_SkillID": 900416,
+            "m_DisplayPriority": 90
+          },
+          {
+            "m_id": 3870,
+            "m_SpecialSkillID": 9005,
+            "m_Level": 1,
+            "m_SkillID": 904126,
+            "m_DisplayPriority": 90
+          },
+          {
+            "m_id": 3871,
+            "m_SpecialSkillID": 9005,
+            "m_Level": 2,
+            "m_SkillID": 904265,
+            "m_DisplayPriority": 90
+          },
+          {
+            "m_id": 3872,
+            "m_SpecialSkillID": 9005,
+            "m_Level": 3,
+            "m_SkillID": 904266,
+            "m_DisplayPriority": 90
+          },
+          {
+            "m_id": 3873,
+            "m_SpecialSkillID": 906,
+            "m_Level": 1,
+            "m_SkillID": 900417,
+            "m_DisplayPriority": 80
+          },
+          {
+            "m_id": 3874,
+            "m_SpecialSkillID": 906,
+            "m_Level": 2,
+            "m_SkillID": 900418,
+            "m_DisplayPriority": 80
+          },
+          {
+            "m_id": 3875,
+            "m_SpecialSkillID": 906,
+            "m_Level": 3,
+            "m_SkillID": 900419,
+            "m_DisplayPriority": 80
+          },
+          {
+            "m_id": 3876,
+            "m_SpecialSkillID": 907,
+            "m_Level": 1,
+            "m_SkillID": 900420,
+            "m_DisplayPriority": 40
+          },
+          {
+            "m_id": 3877,
+            "m_SpecialSkillID": 907,
+            "m_Level": 2,
+            "m_SkillID": 900421,
+            "m_DisplayPriority": 40
+          },
+          {
+            "m_id": 3878,
+            "m_SpecialSkillID": 907,
+            "m_Level": 3,
+            "m_SkillID": 900422,
+            "m_DisplayPriority": 40
+          },
+          {
+            "m_id": 3879,
+            "m_SpecialSkillID": 908,
+            "m_Level": 1,
+            "m_SkillID": 901173,
+            "m_DisplayPriority": 30
+          },
+          {
+            "m_id": 3880,
+            "m_SpecialSkillID": 908,
+            "m_Level": 2,
+            "m_SkillID": 904261,
+            "m_DisplayPriority": 30
+          },
+          {
+            "m_id": 3881,
+            "m_SpecialSkillID": 908,
+            "m_Level": 3,
+            "m_SkillID": 904262,
+            "m_DisplayPriority": 30
+          },
+          {
+            "m_id": 3894,
+            "m_SpecialSkillID": 60108,
+            "m_Level": 1,
+            "m_SkillID": 904127,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3895,
+            "m_SpecialSkillID": 60108,
+            "m_Level": 2,
+            "m_SkillID": 904127,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3896,
+            "m_SpecialSkillID": 60108,
+            "m_Level": 3,
+            "m_SkillID": 904127,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3900,
+            "m_SpecialSkillID": 60109,
+            "m_Level": 1,
+            "m_SkillID": 905126,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3901,
+            "m_SpecialSkillID": 60109,
+            "m_Level": 2,
+            "m_SkillID": 905127,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 3902,
+            "m_SpecialSkillID": 60109,
+            "m_Level": 3,
+            "m_SkillID": 905128,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 7,
+            "m_SpecialSkillID": 1,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 8,
+            "m_SpecialSkillID": 1,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 9,
+            "m_SpecialSkillID": 1,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 10,
+            "m_SpecialSkillID": 2,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 11,
+            "m_SpecialSkillID": 2,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 12,
+            "m_SpecialSkillID": 2,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 53,
+            "m_SpecialSkillID": 5,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 54,
+            "m_SpecialSkillID": 5,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 55,
+            "m_SpecialSkillID": 5,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 56,
+            "m_SpecialSkillID": 5,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 57,
+            "m_SpecialSkillID": 5,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 58,
+            "m_SpecialSkillID": 5,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 59,
+            "m_SpecialSkillID": 5,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 60,
+            "m_SpecialSkillID": 5,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 61,
+            "m_SpecialSkillID": 5,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 62,
+            "m_SpecialSkillID": 5,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 133,
+            "m_SpecialSkillID": 9,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 134,
+            "m_SpecialSkillID": 9,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 135,
+            "m_SpecialSkillID": 9,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 136,
+            "m_SpecialSkillID": 9,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 137,
+            "m_SpecialSkillID": 9,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 138,
+            "m_SpecialSkillID": 9,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 139,
+            "m_SpecialSkillID": 9,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 140,
+            "m_SpecialSkillID": 9,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 141,
+            "m_SpecialSkillID": 9,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 142,
+            "m_SpecialSkillID": 9,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 173,
+            "m_SpecialSkillID": 11,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 174,
+            "m_SpecialSkillID": 11,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 175,
+            "m_SpecialSkillID": 11,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 176,
+            "m_SpecialSkillID": 11,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 177,
+            "m_SpecialSkillID": 11,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 178,
+            "m_SpecialSkillID": 11,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 179,
+            "m_SpecialSkillID": 11,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 180,
+            "m_SpecialSkillID": 11,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 181,
+            "m_SpecialSkillID": 11,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 182,
+            "m_SpecialSkillID": 11,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 213,
+            "m_SpecialSkillID": 13,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 214,
+            "m_SpecialSkillID": 13,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 215,
+            "m_SpecialSkillID": 13,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 216,
+            "m_SpecialSkillID": 13,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 217,
+            "m_SpecialSkillID": 13,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 218,
+            "m_SpecialSkillID": 13,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 219,
+            "m_SpecialSkillID": 13,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 220,
+            "m_SpecialSkillID": 13,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 221,
+            "m_SpecialSkillID": 13,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 222,
+            "m_SpecialSkillID": 13,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 233,
+            "m_SpecialSkillID": 14,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 234,
+            "m_SpecialSkillID": 14,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 235,
+            "m_SpecialSkillID": 14,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 236,
+            "m_SpecialSkillID": 14,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 237,
+            "m_SpecialSkillID": 14,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 238,
+            "m_SpecialSkillID": 14,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 239,
+            "m_SpecialSkillID": 14,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 240,
+            "m_SpecialSkillID": 14,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 241,
+            "m_SpecialSkillID": 14,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 242,
+            "m_SpecialSkillID": 14,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 293,
+            "m_SpecialSkillID": 17,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 294,
+            "m_SpecialSkillID": 17,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 295,
+            "m_SpecialSkillID": 17,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 296,
+            "m_SpecialSkillID": 17,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 297,
+            "m_SpecialSkillID": 17,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 298,
+            "m_SpecialSkillID": 17,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 299,
+            "m_SpecialSkillID": 17,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 300,
+            "m_SpecialSkillID": 17,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 301,
+            "m_SpecialSkillID": 17,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 302,
+            "m_SpecialSkillID": 17,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 333,
+            "m_SpecialSkillID": 19,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 334,
+            "m_SpecialSkillID": 19,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 335,
+            "m_SpecialSkillID": 19,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 336,
+            "m_SpecialSkillID": 19,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 337,
+            "m_SpecialSkillID": 19,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 338,
+            "m_SpecialSkillID": 19,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 339,
+            "m_SpecialSkillID": 19,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 340,
+            "m_SpecialSkillID": 19,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 341,
+            "m_SpecialSkillID": 19,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 342,
+            "m_SpecialSkillID": 19,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 433,
+            "m_SpecialSkillID": 24,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 434,
+            "m_SpecialSkillID": 24,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 435,
+            "m_SpecialSkillID": 24,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 436,
+            "m_SpecialSkillID": 24,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 437,
+            "m_SpecialSkillID": 24,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 438,
+            "m_SpecialSkillID": 24,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 439,
+            "m_SpecialSkillID": 24,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 440,
+            "m_SpecialSkillID": 24,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 441,
+            "m_SpecialSkillID": 24,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 442,
+            "m_SpecialSkillID": 24,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 473,
+            "m_SpecialSkillID": 26,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 474,
+            "m_SpecialSkillID": 26,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 475,
+            "m_SpecialSkillID": 26,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 476,
+            "m_SpecialSkillID": 26,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 477,
+            "m_SpecialSkillID": 26,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 478,
+            "m_SpecialSkillID": 26,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 479,
+            "m_SpecialSkillID": 26,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 480,
+            "m_SpecialSkillID": 26,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 481,
+            "m_SpecialSkillID": 26,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 482,
+            "m_SpecialSkillID": 26,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 513,
+            "m_SpecialSkillID": 28,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 514,
+            "m_SpecialSkillID": 28,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 515,
+            "m_SpecialSkillID": 28,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 516,
+            "m_SpecialSkillID": 28,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 517,
+            "m_SpecialSkillID": 28,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 518,
+            "m_SpecialSkillID": 28,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 519,
+            "m_SpecialSkillID": 28,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 520,
+            "m_SpecialSkillID": 28,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 521,
+            "m_SpecialSkillID": 28,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 522,
+            "m_SpecialSkillID": 28,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 533,
+            "m_SpecialSkillID": 29,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 534,
+            "m_SpecialSkillID": 29,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 535,
+            "m_SpecialSkillID": 29,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 536,
+            "m_SpecialSkillID": 29,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 537,
+            "m_SpecialSkillID": 29,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 538,
+            "m_SpecialSkillID": 29,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 539,
+            "m_SpecialSkillID": 29,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 540,
+            "m_SpecialSkillID": 29,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 541,
+            "m_SpecialSkillID": 29,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 542,
+            "m_SpecialSkillID": 29,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 653,
+            "m_SpecialSkillID": 35,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 654,
+            "m_SpecialSkillID": 35,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 655,
+            "m_SpecialSkillID": 35,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 656,
+            "m_SpecialSkillID": 35,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 657,
+            "m_SpecialSkillID": 35,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 658,
+            "m_SpecialSkillID": 35,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 659,
+            "m_SpecialSkillID": 35,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 660,
+            "m_SpecialSkillID": 35,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 661,
+            "m_SpecialSkillID": 35,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 662,
+            "m_SpecialSkillID": 35,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 713,
+            "m_SpecialSkillID": 38,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 714,
+            "m_SpecialSkillID": 38,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 715,
+            "m_SpecialSkillID": 38,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 716,
+            "m_SpecialSkillID": 38,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 717,
+            "m_SpecialSkillID": 38,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 718,
+            "m_SpecialSkillID": 38,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 719,
+            "m_SpecialSkillID": 38,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 720,
+            "m_SpecialSkillID": 38,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 721,
+            "m_SpecialSkillID": 38,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 722,
+            "m_SpecialSkillID": 38,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 793,
+            "m_SpecialSkillID": 42,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 794,
+            "m_SpecialSkillID": 42,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 795,
+            "m_SpecialSkillID": 42,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 796,
+            "m_SpecialSkillID": 42,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 797,
+            "m_SpecialSkillID": 42,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 798,
+            "m_SpecialSkillID": 42,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 799,
+            "m_SpecialSkillID": 42,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 800,
+            "m_SpecialSkillID": 42,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 801,
+            "m_SpecialSkillID": 42,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 802,
+            "m_SpecialSkillID": 42,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 853,
+            "m_SpecialSkillID": 45,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 854,
+            "m_SpecialSkillID": 45,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 855,
+            "m_SpecialSkillID": 45,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 856,
+            "m_SpecialSkillID": 45,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 857,
+            "m_SpecialSkillID": 45,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 858,
+            "m_SpecialSkillID": 45,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 859,
+            "m_SpecialSkillID": 45,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 860,
+            "m_SpecialSkillID": 45,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 861,
+            "m_SpecialSkillID": 45,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 862,
+            "m_SpecialSkillID": 45,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 913,
+            "m_SpecialSkillID": 48,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 914,
+            "m_SpecialSkillID": 48,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 915,
+            "m_SpecialSkillID": 48,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 916,
+            "m_SpecialSkillID": 48,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 917,
+            "m_SpecialSkillID": 48,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 918,
+            "m_SpecialSkillID": 48,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 919,
+            "m_SpecialSkillID": 48,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 920,
+            "m_SpecialSkillID": 48,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 921,
+            "m_SpecialSkillID": 48,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 922,
+            "m_SpecialSkillID": 48,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 953,
+            "m_SpecialSkillID": 50,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 954,
+            "m_SpecialSkillID": 50,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 955,
+            "m_SpecialSkillID": 50,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 956,
+            "m_SpecialSkillID": 50,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 957,
+            "m_SpecialSkillID": 50,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 958,
+            "m_SpecialSkillID": 50,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 959,
+            "m_SpecialSkillID": 50,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 960,
+            "m_SpecialSkillID": 50,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 961,
+            "m_SpecialSkillID": 50,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 962,
+            "m_SpecialSkillID": 50,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1053,
+            "m_SpecialSkillID": 55,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1054,
+            "m_SpecialSkillID": 55,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1055,
+            "m_SpecialSkillID": 55,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1056,
+            "m_SpecialSkillID": 55,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1057,
+            "m_SpecialSkillID": 55,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1058,
+            "m_SpecialSkillID": 55,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1059,
+            "m_SpecialSkillID": 55,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1060,
+            "m_SpecialSkillID": 55,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1061,
+            "m_SpecialSkillID": 55,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1062,
+            "m_SpecialSkillID": 55,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1073,
+            "m_SpecialSkillID": 56,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1074,
+            "m_SpecialSkillID": 56,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1075,
+            "m_SpecialSkillID": 56,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1076,
+            "m_SpecialSkillID": 56,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1077,
+            "m_SpecialSkillID": 56,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1078,
+            "m_SpecialSkillID": 56,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1079,
+            "m_SpecialSkillID": 56,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1080,
+            "m_SpecialSkillID": 56,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1081,
+            "m_SpecialSkillID": 56,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1082,
+            "m_SpecialSkillID": 56,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1133,
+            "m_SpecialSkillID": 59,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1134,
+            "m_SpecialSkillID": 59,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1135,
+            "m_SpecialSkillID": 59,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1136,
+            "m_SpecialSkillID": 59,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1137,
+            "m_SpecialSkillID": 59,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1138,
+            "m_SpecialSkillID": 59,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1139,
+            "m_SpecialSkillID": 59,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1140,
+            "m_SpecialSkillID": 59,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1141,
+            "m_SpecialSkillID": 59,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1142,
+            "m_SpecialSkillID": 59,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1193,
+            "m_SpecialSkillID": 62,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1194,
+            "m_SpecialSkillID": 62,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1195,
+            "m_SpecialSkillID": 62,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1196,
+            "m_SpecialSkillID": 62,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1197,
+            "m_SpecialSkillID": 62,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1198,
+            "m_SpecialSkillID": 62,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1199,
+            "m_SpecialSkillID": 62,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1200,
+            "m_SpecialSkillID": 62,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1201,
+            "m_SpecialSkillID": 62,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1202,
+            "m_SpecialSkillID": 62,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1313,
+            "m_SpecialSkillID": 68,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1314,
+            "m_SpecialSkillID": 68,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1315,
+            "m_SpecialSkillID": 68,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1316,
+            "m_SpecialSkillID": 68,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1317,
+            "m_SpecialSkillID": 68,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1318,
+            "m_SpecialSkillID": 68,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1319,
+            "m_SpecialSkillID": 68,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1320,
+            "m_SpecialSkillID": 68,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1321,
+            "m_SpecialSkillID": 68,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1322,
+            "m_SpecialSkillID": 68,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1333,
+            "m_SpecialSkillID": 69,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1334,
+            "m_SpecialSkillID": 69,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1335,
+            "m_SpecialSkillID": 69,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1336,
+            "m_SpecialSkillID": 69,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1337,
+            "m_SpecialSkillID": 69,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1338,
+            "m_SpecialSkillID": 69,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1339,
+            "m_SpecialSkillID": 69,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1340,
+            "m_SpecialSkillID": 69,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1341,
+            "m_SpecialSkillID": 69,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1342,
+            "m_SpecialSkillID": 69,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1353,
+            "m_SpecialSkillID": 70,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1354,
+            "m_SpecialSkillID": 70,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1355,
+            "m_SpecialSkillID": 70,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1356,
+            "m_SpecialSkillID": 70,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1357,
+            "m_SpecialSkillID": 70,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1358,
+            "m_SpecialSkillID": 70,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1359,
+            "m_SpecialSkillID": 70,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1360,
+            "m_SpecialSkillID": 70,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1361,
+            "m_SpecialSkillID": 70,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1362,
+            "m_SpecialSkillID": 70,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1393,
+            "m_SpecialSkillID": 72,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1394,
+            "m_SpecialSkillID": 72,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1395,
+            "m_SpecialSkillID": 72,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1396,
+            "m_SpecialSkillID": 72,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1397,
+            "m_SpecialSkillID": 72,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1398,
+            "m_SpecialSkillID": 72,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1399,
+            "m_SpecialSkillID": 72,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1400,
+            "m_SpecialSkillID": 72,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1401,
+            "m_SpecialSkillID": 72,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1402,
+            "m_SpecialSkillID": 72,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1413,
+            "m_SpecialSkillID": 73,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1414,
+            "m_SpecialSkillID": 73,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1415,
+            "m_SpecialSkillID": 73,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1416,
+            "m_SpecialSkillID": 73,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1417,
+            "m_SpecialSkillID": 73,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1418,
+            "m_SpecialSkillID": 73,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1419,
+            "m_SpecialSkillID": 73,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1420,
+            "m_SpecialSkillID": 73,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1421,
+            "m_SpecialSkillID": 73,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1422,
+            "m_SpecialSkillID": 73,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1433,
+            "m_SpecialSkillID": 74,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1434,
+            "m_SpecialSkillID": 74,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1435,
+            "m_SpecialSkillID": 74,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1436,
+            "m_SpecialSkillID": 74,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1437,
+            "m_SpecialSkillID": 74,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1438,
+            "m_SpecialSkillID": 74,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1439,
+            "m_SpecialSkillID": 74,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1440,
+            "m_SpecialSkillID": 74,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1441,
+            "m_SpecialSkillID": 74,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1442,
+            "m_SpecialSkillID": 74,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1613,
+            "m_SpecialSkillID": 83,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1614,
+            "m_SpecialSkillID": 83,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1615,
+            "m_SpecialSkillID": 83,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1616,
+            "m_SpecialSkillID": 83,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1617,
+            "m_SpecialSkillID": 83,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1618,
+            "m_SpecialSkillID": 83,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1619,
+            "m_SpecialSkillID": 83,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1620,
+            "m_SpecialSkillID": 83,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1621,
+            "m_SpecialSkillID": 83,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1622,
+            "m_SpecialSkillID": 83,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1673,
+            "m_SpecialSkillID": 86,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1674,
+            "m_SpecialSkillID": 86,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1675,
+            "m_SpecialSkillID": 86,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1676,
+            "m_SpecialSkillID": 86,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1677,
+            "m_SpecialSkillID": 86,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1678,
+            "m_SpecialSkillID": 86,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1679,
+            "m_SpecialSkillID": 86,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1680,
+            "m_SpecialSkillID": 86,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1681,
+            "m_SpecialSkillID": 86,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1682,
+            "m_SpecialSkillID": 86,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1913,
+            "m_SpecialSkillID": 98,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1914,
+            "m_SpecialSkillID": 98,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1915,
+            "m_SpecialSkillID": 98,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1916,
+            "m_SpecialSkillID": 98,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1917,
+            "m_SpecialSkillID": 98,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1918,
+            "m_SpecialSkillID": 98,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1919,
+            "m_SpecialSkillID": 98,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1920,
+            "m_SpecialSkillID": 98,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1921,
+            "m_SpecialSkillID": 98,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 1922,
+            "m_SpecialSkillID": 98,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2113,
+            "m_SpecialSkillID": 108,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2114,
+            "m_SpecialSkillID": 108,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2115,
+            "m_SpecialSkillID": 108,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2116,
+            "m_SpecialSkillID": 108,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2117,
+            "m_SpecialSkillID": 108,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2118,
+            "m_SpecialSkillID": 108,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2119,
+            "m_SpecialSkillID": 108,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2120,
+            "m_SpecialSkillID": 108,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2121,
+            "m_SpecialSkillID": 108,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2122,
+            "m_SpecialSkillID": 108,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2193,
+            "m_SpecialSkillID": 112,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2194,
+            "m_SpecialSkillID": 112,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2195,
+            "m_SpecialSkillID": 112,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2196,
+            "m_SpecialSkillID": 112,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2197,
+            "m_SpecialSkillID": 112,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2198,
+            "m_SpecialSkillID": 112,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2199,
+            "m_SpecialSkillID": 112,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2200,
+            "m_SpecialSkillID": 112,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2201,
+            "m_SpecialSkillID": 112,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2202,
+            "m_SpecialSkillID": 112,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2473,
+            "m_SpecialSkillID": 126,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2474,
+            "m_SpecialSkillID": 126,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2475,
+            "m_SpecialSkillID": 126,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2476,
+            "m_SpecialSkillID": 126,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2477,
+            "m_SpecialSkillID": 126,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2478,
+            "m_SpecialSkillID": 126,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2479,
+            "m_SpecialSkillID": 126,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2480,
+            "m_SpecialSkillID": 126,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2481,
+            "m_SpecialSkillID": 126,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2482,
+            "m_SpecialSkillID": 126,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2613,
+            "m_SpecialSkillID": 133,
+            "m_Level": 1,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2614,
+            "m_SpecialSkillID": 133,
+            "m_Level": 2,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2615,
+            "m_SpecialSkillID": 133,
+            "m_Level": 3,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2616,
+            "m_SpecialSkillID": 133,
+            "m_Level": 4,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2617,
+            "m_SpecialSkillID": 133,
+            "m_Level": 5,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2618,
+            "m_SpecialSkillID": 133,
+            "m_Level": 6,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2619,
+            "m_SpecialSkillID": 133,
+            "m_Level": 7,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2620,
+            "m_SpecialSkillID": 133,
+            "m_Level": 8,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2621,
+            "m_SpecialSkillID": 133,
+            "m_Level": 9,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          },
+          {
+            "m_id": 2622,
+            "m_SpecialSkillID": 133,
+            "m_Level": 10,
+            "m_SkillID": 0,
+            "m_DisplayPriority": 0
+          }
+        ]
+      }
+    }
+  }
+]
