@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八方旅人0地图全集</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #1a1a2e;
+            color: #e0e0e0;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #4cc9f0;
+        }
+        
+        h1 {
+            color: #4cc9f0;
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(76, 201, 240, 0.3);
+        }
+        
+        .subtitle {
+            color: #a0a0c0;
+            font-size: 1.1rem;
+        }
+        
+        .credits {
+            color: #a0a0c0;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        
+        .map-controls {
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .map-info {
+            color: #a0c4ff;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .nav-btn {
+            background-color: #0f3460;
+            color: #e0e0e0;
+            border: 1px solid #4cc9f0;
+            border-radius: 6px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-btn:hover {
+            background-color: #4cc9f0;
+            color: #1a1a2e;
+        }
+        
+        .nav-btn:disabled {
+            background-color: #555;
+            color: #888;
+            border-color: #666;
+            cursor: not-allowed;
+        }
+        
+        .main-map-container {
+            position: relative;
+            margin-bottom: 30px;
+            background-color: #0f3460;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(76, 201, 240, 0.2);
+            min-height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .main-map {
+            max-width: 100%;
+            max-height: 80vh;
+            display: block;
+        }
+        
+        .loading-map {
+            text-align: center;
+            padding: 50px;
+            color: #a0c4ff;
+            font-size: 1.2rem;
+        }
+        
+        .map-error {
+            text-align: center;
+            padding: 50px;
+            color: #f72585;
+            font-size: 1.2rem;
+        }
+        
+        .thumbnail-container {
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+        
+        .thumbnail-title {
+            color: #72efdd;
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .thumbnail-scroll {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .thumbnail-item {
+            width: 120px;
+            height: 80px;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .thumbnail-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(76, 201, 240, 0.3);
+        }
+        
+        .thumbnail-item.active {
+            border-color: #4cc9f0;
+            box-shadow: 0 0 15px rgba(76, 201, 240, 0.5);
+        }
+        
+        .thumbnail-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .thumbnail-number {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 3px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .map-details {
+            background-color: #16213e;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .details-title {
+            color: #72efdd;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(114, 239, 221, 0.3);
+        }
+        
+        .details-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .detail-item {
+            background-color: #0f3460;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #4cc9f0;
+        }
+        
+        .detail-label {
+            color: #a0c4ff;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .detail-value {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .orientation-notice {
+            background-color: rgba(255, 190, 11, 0.1);
+            border: 1px solid #ffbe0b;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+            color: #ffbe0b;
+            font-size: 0.9rem;
+            display: none;
+        }
+        
+        .orientation-notice.show {
+            display: block;
+        }
+        
+        .map-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .action-btn {
+            background-color: #7209b7;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background-color: #5a08a3;
+        }
+        
+        .action-btn.fullscreen {
+            background-color: #4ade80;
+        }
+        
+        .action-btn.fullscreen:hover {
+            background-color: #3acd70;
+        }
+        
+        .back-home {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(76, 201, 240, 0.2);
+        }
+        
+        .home-link {
+            display: inline-block;
+            background-color: #0f3460;
+            color: #a0c4ff;
+            padding: 12px 30px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(76, 201, 240, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .home-link:hover {
+            background-color: #16213e;
+            border-color: #4cc9f0;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .map-controls {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .thumbnail-item {
+                width: 90px;
+                height: 60px;
+            }
+            
+            .details-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .main-map-container {
+                min-height: 300px;
+            }
+        }
+        
+        .fullscreen-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            display: none;
+        }
+        
+        .fullscreen-overlay.active {
+            display: flex;
+        }
+        
+        .fullscreen-img {
+            max-width: 95%;
+            max-height: 85%;
+            object-fit: contain;
+        }
+        
+        .close-fullscreen {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #f72585;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .fullscreen-info {
+            color: white;
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>八方旅人0地图全集</h1>
+            <p class="subtitle">探索奥鲁斯特拉大陆的每一个角落</p>
+            <p class="credits">地图制作：Iris小艾老师@bilibili，程序开发：ScytheGirl@github</p>
+        </header>
+        
+        <div class="map-controls">
+            <div class="map-info" id="mapInfo">加载地图数据中...</div>
+            <div class="nav-buttons">
+                <button class="nav-btn" id="prevBtn" disabled>上一张</button>
+                <button class="nav-btn" id="nextBtn" disabled>下一张</button>
+                <button class="nav-btn" id="firstBtn" disabled>第一张</button>
+                <button class="nav-btn" id="lastBtn" disabled>最后一张</button>
+            </div>
+        </div>
+        
+        <div class="main-map-container">
+            <div class="loading-map" id="loadingIndicator">
+                <div class="spinner"></div>
+                <p>正在加载地图数据，请稍候...</p>
+            </div>
+            <div class="map-error" id="errorIndicator" style="display: none;">
+                <p>无法加载地图文件，请检查map文件夹中是否有地图图片</p>
+                <p>地图文件格式应为：地图001.png、地图002.png等</p>
+            </div>
+            <img class="main-map" id="mainMap" style="display: none;" alt="当前地图">
+        </div>
+        
+        <div class="orientation-notice" id="orientationNotice">
+            <p><strong>注意：</strong>检测到此地图为竖屏布局(1080x1920)，已自动为您优化显示。如果您需要查看原始完整地图，请使用全屏模式。</p>
+        </div>
+        
+        <div class="thumbnail-container">
+            <div class="thumbnail-title">地图缩略图</div>
+            <div class="thumbnail-scroll" id="thumbnailContainer">
+                <!-- 缩略图将通过JS动态生成 -->
+            </div>
+        </div>
+        
+        <div class="map-details">
+            <div class="details-title">地图信息</div>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <div class="detail-label">当前地图编号</div>
+                    <div class="detail-value" id="currentMapNumber">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">地图总数</div>
+                    <div class="detail-value" id="totalMaps">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">显示比例</div>
+                    <div class="detail-value" id="displayScale">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">图像尺寸</div>
+                    <div class="detail-value" id="imageDimensions">-</div>
+                </div>
+            </div>
+            
+            <div class="map-actions">
+                <button class="action-btn fullscreen" id="fullscreenBtn">全屏查看</button>
+                <button class="action-btn" id="downloadBtn">下载当前地图</button>
+            </div>
+        </div>
+        
+        <div class="back-home">
+            <a href="index.html" class="home-link">返回资料集首页</a>
+        </div>
+    </div>
+    
+    <!-- 全屏查看覆盖层 -->
+    <div class="fullscreen-overlay" id="fullscreenOverlay">
+        <button class="close-fullscreen" id="closeFullscreen">×</button>
+        <img class="fullscreen-img" id="fullscreenImg" alt="全屏地图">
+        <div class="fullscreen-info" id="fullscreenInfo">地图 ###</div>
+    </div>
+
+    <script>
+        // 地图数据管理
+        const mapManager = {
+            currentIndex: 1,
+            totalMaps: 0,
+            mapCache: {},
+            isPortrait: true,
+            
+            // 初始化地图数据
+            async init() {
+                try {
+                    // 尝试检测地图文件数量
+                    await this.detectMapCount();
+                    
+                    if (this.totalMaps > 0) {
+                        this.updateUI();
+                        await this.loadMap(this.currentIndex);
+                        this.generateThumbnails();
+                        this.enableControls();
+                    } else {
+                        this.showError();
+                    }
+                } catch (error) {
+                    console.error('初始化地图数据失败:', error);
+                    this.showError();
+                }
+            },
+            
+            // 检测地图文件数量
+            async detectMapCount() {
+                let count = 0;
+                let hasMore = true;
+                
+                // 尝试从001开始查找，直到找不到文件
+                while (hasMore && count < 500) { // 设置上限防止无限循环
+                    count++;
+                    const mapNumber = this.formatMapNumber(count);
+                    const mapPath = `map/地图${mapNumber}.png`;
+                    
+                    try {
+                        const response = await fetch(mapPath, { method: 'HEAD' });
+                        if (!response.ok) {
+                            // 如果找不到文件，减少计数并停止
+                            count--;
+                            hasMore = false;
+                        }
+                    } catch (error) {
+                        // 如果发生错误，减少计数并停止
+                        count--;
+                        hasMore = false;
+                    }
+                }
+                
+                this.totalMaps = count;
+            },
+            
+            // 格式化地图编号为三位数
+            formatMapNumber(num) {
+                return num.toString().padStart(3, '0');
+            },
+            
+            // 加载指定编号的地图
+            async loadMap(mapNumber) {
+                this.currentIndex = mapNumber;
+                const formattedNumber = this.formatMapNumber(mapNumber);
+                const mapPath = `map/地图${formattedNumber}.png`;
+                
+                // 显示加载指示器
+                document.getElementById('loadingIndicator').style.display = 'block';
+                document.getElementById('mainMap').style.display = 'none';
+                document.getElementById('errorIndicator').style.display = 'none';
+                
+                try {
+                    // 检查是否已缓存
+                    if (!this.mapCache[mapNumber]) {
+                        // 创建新的Image对象预加载
+                        const img = new Image();
+                        await new Promise((resolve, reject) => {
+                            img.onload = () => {
+                                this.mapCache[mapNumber] = img;
+                                resolve(img);
+                            };
+                            img.onerror = reject;
+                            img.src = mapPath;
+                        });
+                    }
+                    
+                    // 更新主地图显示
+                    const mainMap = document.getElementById('mainMap');
+                    mainMap.src = mapPath;
+                    
+                    // 等待图像加载完成
+                    await new Promise((resolve) => {
+                        if (mainMap.complete) {
+                            resolve();
+                        } else {
+                            mainMap.onload = resolve;
+                        }
+                    });
+                    
+                    // 检测图像方向并调整显示
+                    this.detectOrientation(mainMap);
+                    
+                    // 更新UI
+                    this.updateUI();
+                    this.updateThumbnailSelection();
+                    
+                    // 隐藏加载指示器，显示地图
+                    document.getElementById('loadingIndicator').style.display = 'none';
+                    mainMap.style.display = 'block';
+                    
+                } catch (error) {
+                    console.error(`加载地图 ${formattedNumber} 失败:`, error);
+                    document.getElementById('loadingIndicator').style.display = 'none';
+                    document.getElementById('errorIndicator').style.display = 'block';
+                }
+            },
+            
+            // 检测图像方向并调整显示
+            detectOrientation(img) {
+                const width = img.naturalWidth;
+                const height = img.naturalHeight;
+                
+                // 判断是否为竖屏 (1080x1920)
+                this.isPortrait = width === 1080 && height === 1920;
+                
+                // 更新显示信息
+                document.getElementById('imageDimensions').textContent = `${width} × ${height}`;
+                document.getElementById('displayScale').textContent = this.isPortrait ? '竖屏(已优化)' : '横屏/其他';
+                
+                // 显示或隐藏方向通知
+                const notice = document.getElementById('orientationNotice');
+                if (this.isPortrait) {
+                    notice.classList.add('show');
+                    
+                    // 如果是竖屏图像，创建优化显示
+                    this.optimizePortraitDisplay(img);
+                } else {
+                    notice.classList.remove('show');
+                    img.style.width = 'auto';
+                    img.style.height = 'auto';
+                    img.style.maxWidth = '100%';
+                    img.style.maxHeight = '80vh';
+                }
+            },
+            
+            // 优化竖屏图像显示（1080x1920）
+            optimizePortraitDisplay(img) {
+                // 创建canvas来裁剪和拼接图像
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                canvas.width = 2160;
+                canvas.height = 1000;
+                
+                // 清空canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // 将原图分成上下两部分，左右拼接
+                // 上半部分 (0,0) 到 (1080,960)
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, 1080, 40);
+                ctx.fillRect(0, 960, 1080, 40);
+                ctx.drawImage(img, 0, 160, 1080, 920, 0, 40, 1080, 920);
+                
+                // 下半部分 (0,960) 到 (1080,1920)
+                ctx.drawImage(img, 0, 0, 1080, 160, 1080, 0, 1080, 160);
+                ctx.drawImage(img, 0, 1080, 1080, 840, 1080, 160, 1080, 840);
+                
+                // 将canvas内容设置为图像源
+                img.src = canvas.toDataURL('image/png');
+                
+                // 调整显示尺寸
+                img.style.width = 'auto';
+                img.style.height = 'auto';
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '70vh';
+            },
+            
+            // 生成缩略图栏
+            generateThumbnails() {
+                const container = document.getElementById('thumbnailContainer');
+                container.innerHTML = '';
+                
+                // 计算显示的缩略图范围
+                let start = Math.max(1, this.currentIndex - 2);
+                let end = Math.min(this.totalMaps, this.currentIndex + 2);
+                
+                // 如果当前靠近开头，显示前5张
+                if (this.currentIndex <= 3) {
+                    start = 1;
+                    end = Math.min(5, this.totalMaps);
+                }
+                
+                // 如果当前靠近结尾，显示最后5张
+                if (this.currentIndex >= this.totalMaps - 2) {
+                    start = Math.max(1, this.totalMaps - 4);
+                    end = this.totalMaps;
+                }
+                
+                // 创建缩略图
+                for (let i = start; i <= end; i++) {
+                    const thumbnailItem = document.createElement('div');
+                    thumbnailItem.className = `thumbnail-item ${i === this.currentIndex ? 'active' : ''}`;
+                    thumbnailItem.dataset.mapNumber = i;
+                    
+                    const formattedNumber = this.formatMapNumber(i);
+                    const mapPath = `map/地图${formattedNumber}.png`;
+                    
+                    thumbnailItem.innerHTML = `
+                        <img class="thumbnail-img" src="${mapPath}" alt="地图 ${formattedNumber}" loading="lazy">
+                        <div class="thumbnail-number">${formattedNumber}</div>
+                    `;
+                    
+                    // 点击缩略图加载对应地图
+                    thumbnailItem.addEventListener('click', () => {
+                        this.loadMap(i);
+                    });
+                    
+                    container.appendChild(thumbnailItem);
+                }
+            },
+            
+            // 更新缩略图选择状态
+            updateThumbnailSelection() {
+                document.querySelectorAll('.thumbnail-item').forEach(item => {
+                    const mapNumber = parseInt(item.dataset.mapNumber);
+                    if (mapNumber === this.currentIndex) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            },
+            
+            // 更新UI信息
+            updateUI() {
+                document.getElementById('currentMapNumber').textContent = this.formatMapNumber(this.currentIndex);
+                document.getElementById('totalMaps').textContent = this.totalMaps;
+                document.getElementById('mapInfo').textContent = `地图 ${this.formatMapNumber(this.currentIndex)} / ${this.formatMapNumber(this.totalMaps)}`;
+                
+                // 更新按钮状态
+                document.getElementById('prevBtn').disabled = this.currentIndex <= 1;
+                document.getElementById('nextBtn').disabled = this.currentIndex >= this.totalMaps;
+                document.getElementById('firstBtn').disabled = this.currentIndex <= 1;
+                document.getElementById('lastBtn').disabled = this.currentIndex >= this.totalMaps;
+            },
+            
+            // 启用控制按钮
+            enableControls() {
+                document.getElementById('prevBtn').addEventListener('click', () => {
+                    if (this.currentIndex > 1) {
+                        this.loadMap(this.currentIndex - 1);
+                    }
+                });
+                
+                document.getElementById('nextBtn').addEventListener('click', () => {
+                    if (this.currentIndex < this.totalMaps) {
+                        this.loadMap(this.currentIndex + 1);
+                    }
+                });
+                
+                document.getElementById('firstBtn').addEventListener('click', () => {
+                    this.loadMap(1);
+                });
+                
+                document.getElementById('lastBtn').addEventListener('click', () => {
+                    this.loadMap(this.totalMaps);
+                });
+            },
+            
+            // 显示错误信息
+            showError() {
+                document.getElementById('loadingIndicator').style.display = 'none';
+                document.getElementById('errorIndicator').style.display = 'block';
+            }
+        };
+        
+        // 全屏功能
+        const fullscreenManager = {
+            init() {
+                const fullscreenBtn = document.getElementById('fullscreenBtn');
+                const closeFullscreenBtn = document.getElementById('closeFullscreen');
+                const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+                const fullscreenImg = document.getElementById('fullscreenImg');
+                const fullscreenInfo = document.getElementById('fullscreenInfo');
+                
+                fullscreenBtn.addEventListener('click', () => {
+                    this.openFullscreen();
+                });
+                
+                closeFullscreenBtn.addEventListener('click', () => {
+                    this.closeFullscreen();
+                });
+                
+                // 点击背景关闭全屏
+                fullscreenOverlay.addEventListener('click', (e) => {
+                    if (e.target === fullscreenOverlay) {
+                        this.closeFullscreen();
+                    }
+                });
+                
+                // 按ESC键关闭全屏
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && fullscreenOverlay.classList.contains('active')) {
+                        this.closeFullscreen();
+                    }
+                });
+            },
+            
+            openFullscreen() {
+                const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+                const fullscreenImg = document.getElementById('fullscreenImg');
+                const fullscreenInfo = document.getElementById('fullscreenInfo');
+                const currentMap = document.getElementById('mainMap');
+                
+                // 获取原始图像路径（非优化版本）
+                const formattedNumber = mapManager.formatMapNumber(mapManager.currentIndex);
+                const originalMapPath = `map/地图${formattedNumber}.png`;
+                
+                // 加载原始图像到全屏
+                fullscreenImg.src = originalMapPath;
+                fullscreenInfo.textContent = `地图 ${formattedNumber}`;
+                
+                // 显示全屏覆盖层
+                fullscreenOverlay.classList.add('active');
+            },
+            
+            closeFullscreen() {
+                const fullscreenOverlay = document.getElementById('fullscreenOverlay');
+                fullscreenOverlay.classList.remove('active');
+            }
+        };
+        
+        // 下载功能
+        const downloadManager = {
+            init() {
+                const downloadBtn = document.getElementById('downloadBtn');
+                downloadBtn.addEventListener('click', () => {
+                    this.downloadCurrentMap();
+                });
+            },
+            
+            downloadCurrentMap() {
+                const formattedNumber = mapManager.formatMapNumber(mapManager.currentIndex);
+                const mapPath = `map/地图${formattedNumber}.png`;
+                
+                // 创建下载链接
+                const link = document.createElement('a');
+                link.href = mapPath;
+                link.download = `八方旅人0地图_${formattedNumber}.png`;
+                link.click();
+            }
+        };
+        
+        // 页面加载完成后初始化
+        window.addEventListener('DOMContentLoaded', async function() {
+            // 初始化地图管理器
+            await mapManager.init();
+            
+            // 初始化全屏管理器
+            fullscreenManager.init();
+            
+            // 初始化下载管理器
+            downloadManager.init();
+            
+            // 添加键盘导航支持
+            document.addEventListener('keydown', (e) => {
+                // 左箭头：上一张
+                if (e.key === 'ArrowLeft' && mapManager.currentIndex > 1) {
+                    mapManager.loadMap(mapManager.currentIndex - 1);
+                }
+                // 右箭头：下一张
+                else if (e.key === 'ArrowRight' && mapManager.currentIndex < mapManager.totalMaps) {
+                    mapManager.loadMap(mapManager.currentIndex + 1);
+                }
+                // Home键：第一张
+                else if (e.key === 'Home') {
+                    mapManager.loadMap(1);
+                }
+                // End键：最后一张
+                else if (e.key === 'End') {
+                    mapManager.loadMap(mapManager.totalMaps);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
