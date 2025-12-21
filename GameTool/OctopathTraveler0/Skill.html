@@ -1314,14 +1314,14 @@
             
             let simplified = '';
             
-            // 计算1.5*value/100，注意valueDisplay可能是负数，我们需要取绝对值
-            const valueExpr = simplifyValueExpression(valueDisplay, 1.5/100); // 除以100在这里处理
+            // 计算value/100
+            const valueExpr = simplifyValueExpression(valueDisplay, 0.01);
             
             // 计算ratio/100
             const ratioExpr = simplifyValueExpression(ratioDisplay, 0.01);
             
             if (calcType === 1) {
-                simplified = `(物攻×${valueExpr}-物防)`;
+                simplified = `(物攻×${valueExpr}-物防÷2)`;
             } else if (calcType === 2) {
                 // 根据value的正负判断
                 let isDamage = false;
@@ -1336,7 +1336,7 @@
                 }
                 
                 if (isDamage) {
-                    simplified = `(魔攻×${valueExpr}-魔防)`;
+                    simplified = `(魔攻×${valueExpr}-魔防÷2)`;
                 } else {
                     simplified = `(魔防×${valueExpr})`;
                 }
@@ -1662,7 +1662,7 @@
                     const defP = parseFloat(document.getElementById('defP').value) || 0;
                     lastValueAtkP = atkP;
                     lastValueDefP = defP;
-                    damage = (atkP * 1.5 * value / 100 - defP) * ratio * otherMultiplier;
+                    damage = (atkP * value / 100 - defP / 2) * ratio * otherMultiplier;
                 } else if (currentCalculatorData.calcType === 2) {
                     // 判断是伤害还是回复
                     const isDamage = typeof currentCalculatorData.valueDisplay === 'string' ? 
@@ -1674,20 +1674,20 @@
                         const defM = parseFloat(document.getElementById('defM').value) || 0;
                         lastValueAtkM = atkM;
                         lastValueDefM = defM;
-                        damage = (atkM * 1.5 * value / 100 - defM) * ratio * otherMultiplier;
+                        damage = (atkM * value / 100 - defM / 2) * ratio * otherMultiplier;
                     } else {
                         const defM = parseFloat(document.getElementById('defM').value) || 0;
                         lastValueDefM = defM;
-                        damage = (defM * 1.5 * value / 100) * ratio * otherMultiplier;
+                        damage = (defM * value / 100) * ratio * otherMultiplier;
                     }
                 }
                 
                 // 确保伤害非负
-                damage = Math.max(0, damage);
+                damage = Math.max(1, damage);
                 
                 // 计算浮动范围（98%~102%）
-                const minDamage = Math.floor(damage * 0.98);
-                const maxDamage = Math.ceil(damage * 1.02);
+                const minDamage = Math.ceil(damage * 0.98);
+                const maxDamage = Math.floor(damage * 1.02);
                 
                 // 显示结果
                 damageResult.textContent = `${minDamage}~${maxDamage}`;
