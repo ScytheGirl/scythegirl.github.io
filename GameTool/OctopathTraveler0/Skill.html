@@ -574,7 +574,7 @@
         
         <div class="controls">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="请输入技能名称关键词（支持空格分隔多个关键词）" autocomplete="off">
+                <input type="text" id="searchInput" placeholder="请输入技能名称关键词（支持空格分隔多个关键词）或直接输入技能ID" autocomplete="off">
                 <button class="search-btn" id="searchBtn" disabled>搜索</button>
             </div>
             
@@ -1006,6 +1006,14 @@
                 return [];
             }
             
+            let searchById = 0;
+            if (keywordList.length === 1) {
+                const matched = keywordList[0].match(/^(\d+)$/);
+                if (matched) {
+                    searchById = parseInt(matched[0]);
+                }
+            }
+            
             // 在GameTextSkill中匹配文本
             const matchedTextIds = [];
             const matchScores = new Map(); // m_id -> 匹配度
@@ -1046,6 +1054,13 @@
                         skill,
                         matchScore: score,
                         matchType: nameMatch ? '名称' : '描述'
+                    });
+                // 检查是否有按ID匹配的情况
+                } else if (searchById && skill.m_id === searchById) {
+                    matchedSkills.push({
+                        skill,
+                        matchScore: 1,
+                        matchType: "ID"
                     });
                 }
             }
@@ -1169,7 +1184,9 @@
                     if (info.ownerInfo.isNPC) {
                         info.category = 'NPC技能';
                     } else if (info.ownerInfo.isEssentialSkill) {
-                        if (skill.m_Category === 1) {
+                        if (skill.m_Name === 0) {
+                            info.category = '装备附带技能';
+                        } else if (skill.m_Category === 1) {
                             info.category = '主动技能（精粹）';
                         } else if (skill.m_Category === 2) {
                             info.category = '被动技能（精粹）';
@@ -1338,13 +1355,27 @@
                 if (isDamage) {
                     simplified = `(魔攻×${valueExpr}-魔防÷2)`;
                 } else {
-                    simplified = `(魔防×${valueExpr})`;
+                    simplified = `魔防`;
                 }
             }
             
-            // 如果ratio不是1，则乘以ratio
-            if (ratioExpr !== '1' && ratioExpr !== '1倍率') {
-                simplified += `×${ratioExpr}`;
+            // 恢复类技能，把value和ratio相乘
+            if (simplified === '魔防') {
+                let totalExpr = `${valueExpr}×${ratioExpr}`;
+                if (typeof valueDisplay === 'number') {
+                    totalExpr = simplifyValueExpression(ratioDisplay, valueDisplay / 100 / 100);
+                } else if (typeof ratioDisplay === 'number') {
+                    totalExpr = simplifyValueExpression(valueDisplay, ratioDisplay / 100 / 100);
+                }
+                // 如果总倍率不是1，则乘以总倍率
+                if (totalExpr !== '1' && totalExpr !== 1 ) {
+                    simplified += `×${totalExpr}`;
+                }
+            } else {
+                // 非恢复类技能，如果ratio不是1，则乘以ratio
+                if (ratioExpr !== '1' && ratioExpr !== 1) {
+                    simplified += `×${ratioExpr}`;
+                }
             }
             
             // 添加其他倍率
