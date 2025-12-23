@@ -574,7 +574,7 @@
         
         <div class="controls">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="请输入技能名称关键词（支持空格分隔多个关键词）或直接输入技能ID" autocomplete="off">
+                <input type="text" id="searchInput" placeholder="请输入技能名称/描述关键词（支持空格分隔，如“火 全体”）或输入技能ID（支持范围指定，如“900001-900003”）" autocomplete="off">
                 <button class="search-btn" id="searchBtn" disabled>搜索</button>
             </div>
             
@@ -1006,11 +1006,26 @@
                 return [];
             }
             
-            let searchById = 0;
+            // 支持ID的检索处理
+            let searchById = [];
             if (keywordList.length === 1) {
-                const matched = keywordList[0].match(/^(\d+)$/);
-                if (matched) {
-                    searchById = parseInt(matched[0]);
+                const matchSingle = keywordList[0].match(/^(\d+)$/);
+                if (matchSingle) {
+                    searchById.push(parseInt(matchSingle[0]));
+                } else {
+                    const matchRange = keywordList[0].match(/^(\d+)-(\d+)$/);
+                    if (matchRange) {
+                        const begin = parseInt(matchRange[1]);
+                        const end = parseInt(matchRange[2]);
+                        if (begin > end) {
+                            begin += end;
+                            end = begin - end;
+                            begin -= end;
+                        }
+                        for (let i = begin; i <= end; i++) {
+                            searchById.push(i);
+                        }
+                    }
                 }
             }
             
@@ -1056,7 +1071,7 @@
                         matchType: nameMatch ? '名称' : '描述'
                     });
                 // 检查是否有按ID匹配的情况
-                } else if (searchById && skill.m_id === searchById) {
+                } else if (searchById.length > 0 && searchById.includes(skill.m_id)) {
                     matchedSkills.push({
                         skill,
                         matchScore: 1,
