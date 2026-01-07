@@ -672,6 +672,7 @@
             1: '敌单体', 2: '敌全体', 3: '敌随机', 4: '我随机',
             5: '自己', 7: '前卫全列', 8: '自己', 12: '我单体HP0',
             13: '空位', 14: '命中者', 20: '我全体', 30: '我单体',
+            201: '状态靶向目标',
             214: '我全体', 224: '前/后全列', 225: '友单体', 226: '前/后全列'
         };
 
@@ -1218,7 +1219,7 @@
         // 获取状态文本（用于m_AddAilment和m_SubAilment）
         function getAilmentText(ailmentIds) {
             const ailments = [];
-            
+
             for (const ailmentId of ailmentIds) {
                 if (!ailmentId || ailmentId === 0) continue;
                 
@@ -1229,10 +1230,10 @@
                         if (text) {
                             ailments.push(text);
                         } else {
-                            ailments.push(`<${ailment.m_Label || '未知'}>`);
+                            ailments.push(`${ailment.m_Label || '未知'}`);
                         }
                     } else {
-                        ailments.push(`<${ailment.m_Label || '未知'}>`);
+                        ailments.push(`${ailment.m_Label || '未知'}`);
                     }
                 }
             }
@@ -1688,8 +1689,11 @@
             try {
                 const bpLevel = parseInt(document.getElementById('bpLevel').value) || 0;
                 
+                let isBPSkill = false;
+                
                 if (document.getElementById('bpLevel').tagName === 'SELECT') {
                     lastValueBP = bpLevel;
+                    isBPSkill = true;
                 }
                 
                 // 获取values和ratios对应BP等级的值
@@ -1702,12 +1706,14 @@
                 
                 let damage = 0;
                 lastValueRatio = otherMultiplier;
+                let valueForMul = 0;
                 
                 if (currentCalculatorData.calcType === 1) {
                     const atkP = parseFloat(document.getElementById('atkP').value) || 0;
                     const defP = parseFloat(document.getElementById('defP').value) || 0;
                     lastValueAtkP = atkP;
                     lastValueDefP = defP;
+                    valueForMul = atkP;
                     damage = (atkP * value / 100 - defP / 2) * ratio * otherMultiplier;
                 } else if (currentCalculatorData.calcType === 2) {
                     // 判断是伤害还是回复
@@ -1720,11 +1726,22 @@
                         const defM = parseFloat(document.getElementById('defM').value) || 0;
                         lastValueAtkM = atkM;
                         lastValueDefM = defM;
+                        valueForMul = atkM
                         damage = (atkM * value / 100 - defM / 2) * ratio * otherMultiplier;
                     } else {
                         const defM = parseFloat(document.getElementById('defM').value) || 0;
                         lastValueDefM = defM;
+                        valueForMul = defM;
                         damage = (defM * value / 100) * ratio * otherMultiplier;
+                    }
+                }
+                
+                // 白值倍率
+                if (valueForMul != 0) {
+                    if (isBPSkill) { // BP无效的技能即敌人技能
+                        damage *= (50 + valueForMul) / 240;
+                    } else { // 自己的技能
+                        damage *= (50 + valueForMul) / 240;
                     }
                 }
                 
@@ -1859,11 +1876,11 @@
             const formattedCount = hitRateInfo ? formatCountDisplay(baseCount, hitRateInfo) : baseCount;
             
             // 判断效果类型
-            const isDamage = effectiveValues.some(v => v !== 0);
+            const isDamage = effectiveValues.some(v => v !== 0) || avail.m_CalcType === 6 || avail.m_CalcType === 7;
             const hasAddAilment = addAilmentText.length > 0;
             const hasSubAilment = subAilmentText.length > 0;
             const hasTurns = effectiveTurns.length > 0;
-            
+                       
             // 生成效果描述
             if (!isDamage && hasAddAilment && hasTurns) {
                 // 纯添加状态效果
@@ -1903,6 +1920,21 @@
                 
                 return `${hitRatePrefix}对【${target}】造成【${formattedCount}】次${formulaDisplay}的【${damageType}】，并施加【${turnDisplay}】回合的【${addAilmentText}${addAilmentExtraInfo}】状态。`;
                 
+            } else if (isDamage && hasAddAilment && !hasTurns && !hasSubAilment) {
+                // 伤害+添加一次性状态组合
+                const damageType = getDamageType(avail.m_CalcType, avail.m_ModifyType, avail.m_ModifyStatus, effectiveValues[0], avail.m_OverrideWeapon, avail.m_OverrideMagic);
+                const formula = simplifyDamageFormula(avail.m_CalcType, valueDisplay, ratioDisplay);
+                
+                // 根据calcType决定是否生成可点击链接
+                let formulaDisplay = '';
+                if (avail.m_CalcType === 1 || avail.m_CalcType === 2) {
+                    formulaDisplay = `<a class="formula-link" data-calc-type="${avail.m_CalcType}" data-value="${valueDisplay}" data-ratio="${ratioDisplay}">${formula}</a>`;
+                } else {
+                    formulaDisplay = `<span>${formula}</span>`;
+                }
+                
+                return `${hitRatePrefix}对【${target}】造成【${formattedCount}】次${formulaDisplay}的【${damageType}】，并施加一次【${addAilmentText}${addAilmentExtraInfo}】状态。`;
+                
             } else if (isDamage && hasSubAilment) {
                 // 伤害+解除状态组合
                 const damageType = getDamageType(avail.m_CalcType, avail.m_ModifyType, avail.m_ModifyStatus, effectiveValues[0], avail.m_OverrideWeapon, avail.m_OverrideMagic);
@@ -1925,7 +1957,6 @@
                 }
                 
                 return result;
-                
             } else {
                 return '(技能效果请参见描述)';
             }
@@ -1958,17 +1989,25 @@
             } else if (calcType === 2 && modifyType === 1 && modifyStatus === 5) {
                 return value < 0 ? `魔法${overrideMagic > 0 ? "（" + magicIconMapping[overrideMagic] + "）" : ""}伤害` : 'HP回复';
             } else if (calcType === 3 && modifyType === 1 && modifyStatus === 5) {
-                return value < 0 ? `比例伤害` : 'HP回复';
+                return value < 0 ? `HP比例伤害` : 'HP回复';
             } else if (calcType === 4 && modifyType === 1 && modifyStatus === 5) {
                 return value < 0 ? `道具伤害` : 'HP回复';
+            } else if (calcType === 5 && modifyType === 1 && modifyStatus === 5) {
+                return 'HP比例伤害';
+            } else if (calcType === 5 && modifyType === 1 && modifyStatus === 6) {
+                return 'SP比例伤害';
+            } else if ((calcType === 6 || calcType === 7) && modifyType === 1 && modifyStatus === 5) {
+                return 'HP强制伤害';  
             } else if (modifyType === 2) {
-                if (modifyStatus === 5) return 'HP回复';
-                if (modifyStatus === 6) return 'SP回复';
+                if (modifyStatus === 5) return value < 0 ? 'HP伤害' : 'HP回复';
+                if (modifyStatus === 6) return value < 0 ? 'SP伤害' : 'SP回复';
             } else if (modifyType === 26 && modifyStatus === 6) {
                 return 'SP超量回复';
             } else if (modifyType === 1 && modifyStatus === 6) {
                 return value < 0 ? 'SP伤害' : 'SP回复';
             } else if (modifyStatus === 7) {
+                return value > 0 ? 'BP增加' : 'BP减少';
+            } else if (modifyStatus === 8) {
                 return value > 0 ? 'BP增加' : 'BP减少';
             } else if (modifyType === 25) {
                 return 'JP增加';
@@ -1986,25 +2025,21 @@
 
         // 生成伤害公式
         function generateDamageFormula(calcType, valueDisplay, ratioDisplay) {
+            const strValue = typeof valueDisplay === 'number' ? Math.abs(valueDisplay) : valueDisplay;
             switch (calcType) {
-                case 1:
-                    return `(物攻*1.5*${Math.abs(valueDisplay)}/100-物防)*(${ratioDisplay}/100)*其他倍率`;
-                case 2:
-                    const absValue = Math.abs(valueDisplay);
-                    if (valueDisplay < 0) {
-                        return `(魔攻*1.5*${absValue}/100-魔防)*(${ratioDisplay}/100)*其他倍率`;
-                    } else {
-                        return `(魔防*1.5*${absValue}/100)*(${ratioDisplay}/100)*其他倍率`;
-                    }
                 case 3:
                     if (ratioDisplay === 100) {
-                        return `伤害值*${valueDisplay}%`;
+                        return `伤害值*${strValue}%`;
                     } else {
-                        return `自余值*${valueDisplay}%*${ratioDisplay}%`;
+                        return `自余值*${strValue}%*${ratioDisplay}%`;
                     }
                 case 4:
-                    const strDisplay = typeof valueDisplay === 'number' ? Math.abs(valueDisplay) : valueDisplay;
-                    return `${strDisplay}点`;
+                    return `${strValue}点`;
+                case 5:
+                    return `目标剩余值*${strValue}%`;
+                case 6:
+                case 7:
+                    return `目标剩余值-1`;
                 default:
                     return `未知计算公式(类型${calcType})`;
             }
