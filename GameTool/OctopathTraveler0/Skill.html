@@ -820,6 +820,7 @@
 
         // 加载所有数据文件
         async function loadAllData() {
+            let loadSuccess = false;
             try {
                 // 显示加载指示器
                 loadingIndicator.classList.add('active');
@@ -959,18 +960,32 @@
                     showSuccessMessage('基本数据文件加载失败，无法进行查询。请检查文件路径并重试。');
                 }
                 
+                loadSuccess = true;
             } catch (error) {
                 console.error('加载数据时发生错误:', error);
                 showSuccessMessage('加载数据时发生错误: ' + error.message);
+                loadSuccess = false;
             } finally {
                 // 隐藏加载指示器
                 loadingIndicator.classList.remove('active');
+                return loadSuccess;
             }
         }
 
         // 搜索技能
         async function searchSkills() {
-            const keywords = searchInput.value.trim();
+            let keywords = searchInput.value.trim();
+            
+            // 如果搜索框为空但有URL参数，使用URL参数
+            if (!keywords && window.location.search) {
+                const urlParams = new URLSearchParams(window.location.search);
+                const skillIdFromUrl = urlParams.get('skillid');
+                if (skillIdFromUrl && !isNaN(skillIdFromUrl)) {
+                    keywords = skillIdFromUrl;
+                    searchInput.value = skillIdFromUrl;
+                }
+            }
+            
             if (!keywords) {
                 showError('请输入搜索关键词');
                 return;
@@ -2170,13 +2185,44 @@
             });
         }
 
-        // 页面加载完成后初始化
         window.addEventListener('DOMContentLoaded', function() {
             // 初始化状态指示器
             initStatusIndicators();
             
+            // 先解析URL参数
+            const urlParams = new URLSearchParams(window.location.search);
+            const skillIdFromUrl = urlParams.get('skillid');
+            const atkpFromUrl = urlParams.get('atkp');
+            const atkmFromUrl = urlParams.get('atkm');
+            const defpFromUrl = urlParams.get('defp');
+            const defmFromUrl = urlParams.get('defm');
+            
+            // 如果有URL参数，更新全局变量
+            if (atkpFromUrl && !isNaN(atkpFromUrl)) {
+                lastValueAtkP = parseInt(atkpFromUrl);
+            }
+            if (atkmFromUrl && !isNaN(atkmFromUrl)) {
+                lastValueAtkM = parseInt(atkmFromUrl);
+            }
+            if (defpFromUrl && !isNaN(defpFromUrl)) {
+                lastValueDefP = parseInt(defpFromUrl);
+            }
+            if (defmFromUrl && !isNaN(defmFromUrl)) {
+                lastValueDefM = parseInt(defmFromUrl);
+            }
+            
             // 加载数据
-            loadAllData();
+            loadAllData().then(() => {
+                // 数据加载完成后，如果URL中有skillid参数，自动查询
+                if (skillIdFromUrl && !isNaN(skillIdFromUrl)) {
+                    // 设置搜索框的值
+                    searchInput.value = skillIdFromUrl;
+                    // 执行搜索
+                    setTimeout(() => {
+                        searchSkills();
+                    }, 100);
+                }
+            });
             
             // 监听搜索按钮点击
             searchBtn.addEventListener('click', searchSkills);

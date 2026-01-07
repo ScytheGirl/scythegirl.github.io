@@ -627,6 +627,17 @@
         .success-text {
             flex: 1;
         }
+        /* 技能列表链接样式 */
+        .skill-list a {
+            color: #4cc9f0;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .skill-list a:hover {
+            color: #72efdd;
+            text-decoration: underline;
+        }
         
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-5px); }
@@ -1709,14 +1720,22 @@
                 // 创建技能组HTML（带悬停提示）
                 let skillsHtml = `${enemyData.skillsId}`;
                 let skillsTooltipHtml = '';
-                
+
                 if (enemyData.skillList && enemyData.skillList.length > 0) {
                     skillsHtml = `<span class="skills-value">${enemyData.skillsId}</span>`;
                     skillsTooltipHtml = `
                         <div class="skills-tooltip">
                             <div class="weakness-label">技能列表 (${enemyData.skillList.length}个)</div>
                             <ul class="skill-list">
-                                ${enemyData.skillList.map(skill => `<li>${skill.name} (ID: ${skill.id})</li>`).join('')}
+                                ${enemyData.skillList.map(skill => 
+                                    `<li>
+                                        <a href="Skill.html?skillid=${skill.id}&atkp=${enemyData.atkP}&atkm=${enemyData.atkM}&defp=${enemyData.defP}&defm=${enemyData.defM}" 
+                                           target="_blank" 
+                                           title="查看技能详情">
+                                            ${skill.name} (ID: ${skill.id})
+                                        </a>
+                                    </li>`
+                                ).join('')}
                             </ul>
                         </div>
                     `;
